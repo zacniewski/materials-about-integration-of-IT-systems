@@ -8,7 +8,25 @@
   4. folder 'SQL-exercises' zawiera ćwiczenia z języka SQL, wykorzystując do tego bazę SQLite i tutoriale: [pierwszy](https://gvwilson.github.io/sql-tutorial/) oraz [drugi](https://www.sqlitetutorial.net/sqlite-python/creating-tables/) na podstawie linków z punktu nr 4.
   5. folder 'django-on-docker' pokazuje użycie Django, Dockera (dockerfile + docker-compose) na przykładzie [tutoriala](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/) ze strony Testdriven.io.
 
-#### II. Linki
+
+#### II. Zadania do wykonania w ramach zaliczenia przedmiotu  
+
+  1. Bazując na [tutorialu o SQLu](https://lessonomicon.github.io/querynomicon/) należy:  
+    - wykonać wszystkie ćwiczenia z rozdziału [Core features](https://lessonomicon.github.io/querynomicon/s02_core/index.html),  
+    - bazy danych SQLite do realizacji ćwiczeń dostępne sa na ww. stronie głównej tutoriala,  
+    - technologia dowolna; w tutorialu wykorzystywany jest Python, ale można użyć swoich ulubionych narzędzi,  
+    - ćwiczenia zapisujemy w folderze `sql-exercises` w swoim repozytorium dotyczącym przedmiotu,  w folderze tym powinien znajdować się plik `README.md` oraz folder ze zrzutami obrazu, np. `screenshots`,  
+    - w pliku `README.md` każdemu ćwiczeniu nadajemy kolejny numer (np. `exercise-01`, itd.), umieszczamy tekst ćwiczenia, komendę SQL do rozwiązania ćwiczenia oraz zrzut ekranu z wynikiem działania komendy.  
+
+  2. Należy zaimplementować cztery różne aplikacje webowe:  
+    - aplikacja typu 'blog' na wybranej platformie PaaS,
+    - aplikacja typu 'to-do' na wybranej platformie PaaS,
+    - aplikacja wykorzystująca REST API (np. standardowy CRUD) lub API dostarczające danych w odpowiednim formacie, np. JSON na wybranej platformie PaaS,  
+    - aplikacja wykorzystująca obrazy i kontenery Dockera (lokalnie lub na wybranej platformie PaaS),  
+    - każdą aplikację, która będzie umieszczana na platformie PaaS umieszczamy w osobnym repozytorium ... 
+
+
+#### III. Linki z zasobami
 
 1. ##### Python
   - [Interactive](https://www.learnpython.org/) Python tutorial,  
@@ -20,7 +38,7 @@
  - najważniejsze [komendy gita](https://training.github.com/downloads/pl/github-git-cheat-sheet/) w pigułce,
  - wizualna [ściąga](https://marklodato.github.io/visual-git-guide/index-pl.html) z gita,
  - [Generowanie](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) kluczy SSH 
-   i ich [dodanie](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) do konta GitHub,
+   i ich [dodawanie](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) do konta GitHub,
  - podstawowa [składnia](https://www.markdownguide.org/basic-syntax/) Markdown,    
  - [Emoji](https://gist.github.com/rxaviers/7360908) on GitHub,
  - GitHub [actions](https://docs.github.com/en/actions),
@@ -49,8 +67,3 @@
   - Docker [cheat sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/),
   - Darmowe [laboratoria](https://labs.play-with-k8s.com/) do nauki Kubernetes,
 
-6. ##### Zadania do wykonania w ramach zaliczenia przedmiotu
-  - Aplikacja typu 'blog' na wybranej platformie PaaS,
-  - Aplikacja typu 'to-do' na wybranej platformie PaaS,
-  - Aplikacja wykorzystująca REST API (np. standardowy CRUD) lub API dostarczające danych w odpowiednim formacie, np. JSON na wybranej platformie PaaS,  
-  - Aplikacja wykorzystująca obrazy i kontenery Dockera na wybranej platformie PaaS.

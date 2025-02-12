@@ -6,7 +6,7 @@ ALL_COUNTRIES_URL = "https://restcountries.com/v3.1/all"
 list_of_all_countries = requests.get(ALL_COUNTRIES_URL).json()
 
 # Look at the names before start
-all_names = [n["name"]["common"] for n in list_of_all_countries]
+all_names = [some_country["name"]["common"] for some_country in list_of_all_countries]
 print(f"Available countries: \n{all_names}\n\n")
 
 
