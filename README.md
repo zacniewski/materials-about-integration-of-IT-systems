@@ -49,8 +49,8 @@
   - Docker [cheat sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/),
   - Darmowe [laboratoria](https://labs.play-with-k8s.com/) do nauki Kubernetes,
 
-6. ##### Aplikacja uruchamiane w kontenerze
-  - blog z punktu nr 3,
-  - "pogodynka",
-  - web scrapper,
-  - ...
+6. ##### Zadania do wykonania w ramach zaliczenia przedmiotu
+  - Aplikacja typu 'blog' na wybranej platformie PaaS,
+  - Aplikacja typu 'to-do' na wybranej platformie PaaS,
+  - Aplikacja wykorzystująca REST API (np. standardowy CRUD) lub API dostarczające danych w odpowiednim formacie, np. JSON na wybranej platformie PaaS,  
+  - Aplikacja wykorzystująca obrazy i kontenery Dockera na wybranej platformie PaaS.

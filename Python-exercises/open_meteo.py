@@ -46,7 +46,7 @@ if __name__ == '__main__':
     place = "Gdynia"
     weather_url = (f"https://api.open-meteo.com/v1/forecast"
                    f"?latitude={coordinates[place][0]}&longitude={coordinates[place][1]}"
-                   f"&hourly=temperature_2m,rain,weather_code")
+                   f"&hourly=temperature_2m,rain,weather_code,wind_speed_10m")
 
     # You can check data in the browser:
     print(f"Pogoda dla m. {place}: {weather_url}\n")
