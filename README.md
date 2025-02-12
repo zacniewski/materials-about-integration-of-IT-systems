@@ -1,6 +1,6 @@
 ### Materiały z "Integracji systemów informatycznych"
 
-#### I. Opis zawartości
+#### I. Opis zawartości repozytorium
 
   1. folder 'blog-django-girls-2024' zawiera aplikację 'blog' z tutorialu [Django Girls](https://tutorial.djangogirls.org/pl/),
   2. folder 'simple-contact-form' pokazuje użycie Django, Dockera (dockerfile + docker-compose), DRF oraz pliku `Makefile` do realizacji aplikacji umożliwiającej zarządzanie kontaktami,  
@@ -12,10 +12,10 @@
 #### II. Zadania do wykonania w ramach zaliczenia przedmiotu  
 
   1. Bazując na [tutorialu o SQLu](https://lessonomicon.github.io/querynomicon/) należy:  
-    - wykonać wszystkie ćwiczenia z rozdziału [Core features](https://lessonomicon.github.io/querynomicon/s02_core/index.html),  
+    - wykonać wszystkie ćwiczenia z rozdziału [Core Features](https://lessonomicon.github.io/querynomicon/s02_core/index.html),  
     - bazy danych SQLite do realizacji ćwiczeń dostępne sa na ww. stronie głównej tutoriala,  
     - technologia dowolna; w tutorialu wykorzystywany jest Python, ale można użyć swoich ulubionych narzędzi,  
-    - ćwiczenia zapisujemy w folderze `sql-exercises` w swoim repozytorium dotyczącym przedmiotu,  w folderze tym powinien znajdować się plik `README.md` oraz folder ze zrzutami obrazu, np. `screenshots`,  
+    - ćwiczenia zapisujemy w folderze `sql-exercises` w swoim repozytorium dotyczącym przedmiotu, w folderze tym powinien znajdować się plik `README.md` oraz folder ze zrzutami obrazu, np. `screenshots`,  
     - w pliku `README.md` każdemu ćwiczeniu nadajemy kolejny numer (np. `exercise-01`, itd.), umieszczamy tekst ćwiczenia, komendę SQL do rozwiązania ćwiczenia oraz zrzut ekranu z wynikiem działania komendy.  
 
   2. Należy zaimplementować cztery różne aplikacje webowe:  
@@ -23,7 +23,9 @@
     - aplikacja typu 'to-do' na wybranej platformie PaaS,
     - aplikacja wykorzystująca REST API (np. standardowy CRUD) lub API dostarczające danych w odpowiednim formacie, np. JSON na wybranej platformie PaaS,  
     - aplikacja wykorzystująca obrazy i kontenery Dockera (lokalnie lub na wybranej platformie PaaS),  
-    - każdą aplikację, która będzie umieszczana na platformie PaaS umieszczamy w osobnym repozytorium ... 
+    - każdą aplikację, która będzie umieszczana na platformie PaaS umieszczamy w osobnym repozytorium,  
+    - w pliku `README.md` każdego z repozytoriów należy przedstawić zrzuty ekranu z wybranych elementów działającej aplikacji,  
+    - jeśli PaaS to umożliwia, to również należy podać link do działającej aplikacji.  
 
 
 #### III. Linki z zasobami
@@ -65,5 +67,11 @@
   - Docker [Manuals](https://docs.docker.com/manuals/),
   - [Tutoriale](https://realpython.com/tutorials/docker/) Dockera na RealPython (wymagana rejestracja),
   - Docker [cheat sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/),
-  - Darmowe [laboratoria](https://labs.play-with-k8s.com/) do nauki Kubernetes,
+  - Darmowe [laboratoria](https://labs.play-with-k8s.com/) do nauki Kubernetes.  
+
+6. ##### Platformy PaaS
+  - [Render.com](https://render.com/docs) - nie jest wymagana karta kredytowa,  
+  - [Cloud Foundry](https://www.cloudfoundry.org/) - nie jest wymagana karta kredytowa, 
+  - inna (coming soon) ...
+
 
