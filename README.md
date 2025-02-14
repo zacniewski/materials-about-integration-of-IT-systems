@@ -16,13 +16,17 @@
     - bazy danych SQLite do realizacji ćwiczeń dostępne sa na ww. stronie głównej tutoriala,  
     - technologia dowolna; w tutorialu wykorzystywany jest Python, ale można użyć swoich ulubionych narzędzi,  
     - ćwiczenia zapisujemy w folderze `sql-exercises` w swoim repozytorium dotyczącym przedmiotu, w folderze tym powinien znajdować się plik `README.md` oraz folder ze zrzutami obrazu, np. `screenshots`,  
-    - w pliku `README.md` każdemu ćwiczeniu nadajemy kolejny numer (np. `exercise-01`, itd.), umieszczamy tekst ćwiczenia, komendę SQL do rozwiązania ćwiczenia oraz zrzut ekranu z wynikiem działania komendy.  <br><br>
+    - w pliku `README.md` każdemu ćwiczeniu nadajemy kolejny numer (np. `exercise-01`, itd.), umieszczamy tekst ćwiczenia, komendę SQL do rozwiązania ćwiczenia oraz zrzut ekranu z wynikiem działania komendy.  
+
+<br>
 
   2. Należy zaimplementować cztery różne aplikacje webowe:  
-    - aplikacja typu 'blog' na wybranej platformie PaaS,
-    - aplikacja typu 'to-do' na wybranej platformie PaaS,
+    - aplikacja typu 'blog' na wybranej platformie PaaS,  
+    - aplikacja typu 'to-do' na wybranej platformie PaaS,  
     - aplikacja wykorzystująca REST API (np. standardowy CRUD) lub API dostarczające danych w odpowiednim formacie, np. JSON na wybranej platformie PaaS,  
-    - aplikacja w środowisku Dockera, konieczne będzie utworzenie plików Dockerfile i docker-compose.yml do jej uruchomienia, może być to aplikacja pobierająca dane pogodowe lub informacje na temat wybranego kraju (patrz przykłady).  <br><br>
+    - aplikacja w środowisku Dockera, konieczne będzie utworzenie plików Dockerfile i docker-compose.yml do jej uruchomienia, może być to aplikacja pobierająca dane pogodowe lub informacje na temat wybranego kraju (patrz przykłady).  
+ 
+<br><br>
 
 > **Dla chętnych**: aplikacja wykorzystująca obrazy i kontenery Dockera na wybranej platformie PaaS.  
 
