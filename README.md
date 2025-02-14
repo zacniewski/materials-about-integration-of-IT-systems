@@ -6,7 +6,7 @@
   2. folder 'simple-contact-form' pokazuje użycie Django, Dockera (dockerfile + docker-compose), DRF oraz pliku `Makefile` do realizacji aplikacji umożliwiającej zarządzanie kontaktami,  
   3. folder 'Python-exercises' zawiera przydatne ćwiczenia różnego rodzaju, rozwiązane za pomocą Pythona :smiley:,  
   4. folder 'SQL-exercises' zawiera ćwiczenia z języka SQL, wykorzystując do tego bazę SQLite i tutoriale: [pierwszy](https://gvwilson.github.io/sql-tutorial/) oraz [drugi](https://www.sqlitetutorial.net/sqlite-python/creating-tables/) na podstawie linków z punktu nr 4.
-  5. folder 'django-on-docker' pokazuje użycie Django, Dockera (dockerfile + docker-compose) na przykładzie [tutoriala](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/) ze strony Testdriven.io.
+  5. folder 'django-on-docker' pokazuje użycie Django, Dockera (dockerfile + docker-compose) na przykładzie [tutoriala](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/) ze strony Testdriven.io. <br><br>
 
 
 #### II. Zadania do wykonania w ramach zaliczenia przedmiotu  
@@ -16,16 +16,21 @@
     - bazy danych SQLite do realizacji ćwiczeń dostępne sa na ww. stronie głównej tutoriala,  
     - technologia dowolna; w tutorialu wykorzystywany jest Python, ale można użyć swoich ulubionych narzędzi,  
     - ćwiczenia zapisujemy w folderze `sql-exercises` w swoim repozytorium dotyczącym przedmiotu, w folderze tym powinien znajdować się plik `README.md` oraz folder ze zrzutami obrazu, np. `screenshots`,  
-    - w pliku `README.md` każdemu ćwiczeniu nadajemy kolejny numer (np. `exercise-01`, itd.), umieszczamy tekst ćwiczenia, komendę SQL do rozwiązania ćwiczenia oraz zrzut ekranu z wynikiem działania komendy.  
+    - w pliku `README.md` każdemu ćwiczeniu nadajemy kolejny numer (np. `exercise-01`, itd.), umieszczamy tekst ćwiczenia, komendę SQL do rozwiązania ćwiczenia oraz zrzut ekranu z wynikiem działania komendy.  <br><br>
 
   2. Należy zaimplementować cztery różne aplikacje webowe:  
     - aplikacja typu 'blog' na wybranej platformie PaaS,
     - aplikacja typu 'to-do' na wybranej platformie PaaS,
     - aplikacja wykorzystująca REST API (np. standardowy CRUD) lub API dostarczające danych w odpowiednim formacie, np. JSON na wybranej platformie PaaS,  
-    - aplikacja wykorzystująca obrazy i kontenery Dockera (lokalnie lub na wybranej platformie PaaS),  
-    - każdą aplikację, która będzie umieszczana na platformie PaaS umieszczamy w osobnym repozytorium,  
-    - w pliku `README.md` każdego z repozytoriów należy przedstawić zrzuty ekranu z wybranych elementów działającej aplikacji,  
-    - jeśli PaaS to umożliwia, to również należy podać link do działającej aplikacji.  
+    - aplikacja w środowisku Dockera, konieczne będzie utworzenie plików Dockerfile i docker-compose.yml do jej uruchomienia, może być to aplikacja pobierająca dane pogodowe lub informacje na temat wybranego kraju (patrz przykłady).  <br><br>
+
+> **Dla chętnych**: aplikacja wykorzystująca obrazy i kontenery Dockera na wybranej platformie PaaS.  
+
+<br>
+  3. Informacje dodatkowe:  
+   - każdą aplikację, która będzie umieszczana na platformie PaaS umieszczamy w osobnym repozytorium,  
+   - w pliku `README.md` każdego z repozytoriów należy przedstawić zrzuty ekranu z wybranych elementów działającej aplikacji,  
+   - jeśli PaaS to umożliwia, to również należy podać link do działającej aplikacji.  <br><br>
 
 
 #### III. Linki z zasobami
