@@ -27,6 +27,7 @@
 > **Dla chętnych**: aplikacja wykorzystująca obrazy i kontenery Dockera na wybranej platformie PaaS.  
 
 <br>
+
   3. Informacje dodatkowe:  
    - każdą aplikację, która będzie umieszczana na platformie PaaS umieszczamy w osobnym repozytorium,  
    - w pliku `README.md` każdego z repozytoriów należy przedstawić zrzuty ekranu z wybranych elementów działającej aplikacji,  
