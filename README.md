@@ -53,4 +53,5 @@
   - Aplikacja typu 'blog' na wybranej platformie PaaS,
   - Aplikacja typu 'to-do' na wybranej platformie PaaS,
   - Aplikacja wykorzystująca REST API (np. standardowy CRUD) lub API dostarczające danych w odpowiednim formacie, np. JSON na wybranej platformie PaaS,  
-  - Aplikacja wykorzystująca obrazy i kontenery Dockera na wybranej platformie PaaS.
+  - Utworzenie plików `Dockerfile` i `docker-compose.yml` do uruchomienia aplikacji w środowisku Dockera,  może być to aplikacja pobierająca dane pogodowe lub informacje na temat wybranego kraju (patrz przykłady),     
+  - Dla chętnych: aplikacja wykorzystująca obrazy i kontenery Dockera na wybranej platformie PaaS.
