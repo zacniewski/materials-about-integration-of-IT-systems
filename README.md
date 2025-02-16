@@ -24,7 +24,9 @@
     - technologia dowolna; w tutorialu wykorzystywany jest Python, ale można użyć swoich ulubionych narzędzi,  
     - ćwiczenia zapisujemy w folderze `sql-exercises` w swoim repozytorium dotyczącym przedmiotu (o nazwie np. `Isi` lub podobnej), w folderze tym powinien znajdować się plik `README.md` oraz folder ze zrzutami obrazu, np. `screenshots`,  
     - w pliku `README.md` każdemu ćwiczeniu nadajemy kolejny numer (np. `exercise-01`, itd.), umieszczamy tekst ćwiczenia, komendę SQL do rozwiązania ćwiczenia oraz zrzut ekranu z wynikiem działania komendy.  
+
 <br>
+
   3. Należy zaimplementować cztery różne aplikacje webowe (trzy na platformie PaaS i jedna lokalnie z użyciem Dockera):  
     - aplikacja typu 'blog' na wybranej platformie PaaS,  
     - aplikacja typu 'to-do' na wybranej platformie PaaS,  
