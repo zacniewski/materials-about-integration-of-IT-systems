@@ -82,7 +82,7 @@
 21. Dziedziczenie klas. Klasa `Animal` ma zawierać atrybuty takie jak `name`, `age`, `sex` oraz metodę `sound()`. Klasy `Dog`, `Cat` oraz `Fox` dziedziczą po klasie `Animal` oraz nadpisują funkcje `sound()` odpowiednimi dźwiękami, dodatkowo klasy `Dog` oraz `Cat` posiadają atrybut `breed`.  
 <br>
 
-22. Załadować plik `test.txt` i stworzyć funkcję wyszukującą najdłuższy wyraz.  
+22. Należy wykorzystać plik `wordlist_10000.txt` i stworzyć funkcję wyszukującą najdłuższy wyraz w tym pliku oraz drugą funkcję, która wyszuka wyrazy o długości 10.    
 <br>
 
 23. Za pomocą pętli stworzyć 1000 losowych 6 znakowych wyrazów [A-Z][a-z][0-9] i zapisać je do pliku `passwords.txt`.  
