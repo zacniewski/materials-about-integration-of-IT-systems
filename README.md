@@ -14,7 +14,7 @@
   1. Bazując na pliku [simple-programming-tasks.md](simple-programming-tasks.md) należy:  
     - wykonać wszystkie zadania z tego pliku w dowolnym języku programowania (w treści zadań sugerowany jest Python, ale można wybrać dowolny język),  
     - rozwiązane zadania zapisujemy w folderze `programming-exercises` w swoim repozytorium dotyczącym przedmiotu (o nazwie np. `Isi` lub podobnej), w folderze tym powinien znajdować się również plik `README.md` oraz folder ze zrzutami obrazu, np. `screenshots`,  
-    - w pliku `README.md` każdemu zadaniu nadajemy kolejny numer (np. `task-01`, itd.), umieszczamy tekst zadania, link do pliku z rozwiązaniem oraz zrzut ekranu z wynikiem działania programu.  
+    - w pliku `README.md` każdemu zadaniu nadajemy kolejny numer (np. `task-01` do `task-26`, itd.), umieszczamy tekst zadania, link do pliku z rozwiązaniem oraz zrzut ekranu z wynikiem działania programu.  
 
 <br>
 
