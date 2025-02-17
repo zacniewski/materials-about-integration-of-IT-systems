@@ -1,4 +1,4 @@
-> Uwagi dotyczą języka Python!
+> Uwagi dotyczą języka Python!  
 > Do realizacji zadań można wykorzystać dowolny język!
 
 
