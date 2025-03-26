@@ -18,8 +18,8 @@
 
 <br>
 
-  2. Bazując na [tutorialu o SQLu](https://third-bit.com/sql/) (lub [drugi link tutaj](https://github.com/gvwilson/querynomicon) należy:  
-    - wykonać wszystkie ćwiczenia z rozdziału [Core Features](https://third-bit.com/sql/s02_core/index.html) (lub [drugi link tutaj](https://github.com/gvwilson/querynomicon/blob/main/s02_core/index.md),  
+  2. Bazując na [tutorialu o SQLu](https://third-bit.com/sql/) (lub [drugi link tutaj](https://github.com/gvwilson/querynomicon)) należy:  
+    - wykonać wszystkie ćwiczenia z rozdziału [Core Features](https://third-bit.com/sql/s02_core/index.html) (lub [drugi link tutaj](https://github.com/gvwilson/querynomicon/blob/main/s02_core/index.md)),  
     - bazy danych SQLite do realizacji ćwiczeń dostępne sa na ww. stronie głównej tutoriala,  
     - technologia dowolna; w tutorialu wykorzystywany jest Python, ale można użyć swoich ulubionych narzędzi,  
     - ćwiczenia zapisujemy w folderze `sql-exercises` w swoim repozytorium dotyczącym przedmiotu (o nazwie np. `Isi` lub podobnej), w folderze tym powinien znajdować się plik `README.md` oraz folder ze zrzutami obrazu, np. `screenshots`,  
