@@ -5,7 +5,7 @@
   1. folder 'blog-django-girls-2024' zawiera aplikację 'blog' z tutorialu [Django Girls](https://tutorial.djangogirls.org/pl/),
   2. folder 'simple-contact-form' pokazuje użycie Django, Dockera (dockerfile + docker-compose), DRF oraz pliku `Makefile` do realizacji aplikacji umożliwiającej zarządzanie kontaktami,  
   3. folder 'Python-exercises' zawiera przydatne ćwiczenia różnego rodzaju, rozwiązane za pomocą Pythona :smiley:,  
-  4. folder 'SQL-exercises' zawiera ćwiczenia z języka SQL, wykorzystując do tego bazę SQLite i tutoriale: [pierwszy](https://gvwilson.github.io/sql-tutorial/) oraz [drugi](https://www.sqlitetutorial.net/sqlite-python/creating-tables/) na podstawie linków z punktu nr III.4.
+  4. folder 'SQL-exercises' zawiera ćwiczenia z języka SQL, wykorzystując do tego bazę SQLite i tutoriale: [pierwszy](https://third-bit.com/sql/) oraz [drugi](https://www.sqlitetutorial.net/sqlite-python/creating-tables/) na podstawie linków z punktu nr III.4.
   5. folder 'django-on-docker' pokazuje użycie Django, Dockera (dockerfile + docker-compose) na przykładzie [tutoriala](https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/) ze strony Testdriven.io. <br><br>
 
 
@@ -18,8 +18,8 @@
 
 <br>
 
-  2. Bazując na [tutorialu o SQLu](https://lessonomicon.github.io/querynomicon/) należy:  
-    - wykonać wszystkie ćwiczenia z rozdziału [Core Features](https://lessonomicon.github.io/querynomicon/s02_core/index.html),  
+  2. Bazując na [tutorialu o SQLu](https://third-bit.com/sql/) (lub [drugi link tutaj](https://github.com/gvwilson/querynomicon) należy:  
+    - wykonać wszystkie ćwiczenia z rozdziału [Core Features](https://third-bit.com/sql/s02_core/index.html) (lub [drugi link tutaj](https://github.com/gvwilson/querynomicon/blob/main/s02_core/index.md),  
     - bazy danych SQLite do realizacji ćwiczeń dostępne sa na ww. stronie głównej tutoriala,  
     - technologia dowolna; w tutorialu wykorzystywany jest Python, ale można użyć swoich ulubionych narzędzi,  
     - ćwiczenia zapisujemy w folderze `sql-exercises` w swoim repozytorium dotyczącym przedmiotu (o nazwie np. `Isi` lub podobnej), w folderze tym powinien znajdować się plik `README.md` oraz folder ze zrzutami obrazu, np. `screenshots`,  
@@ -76,7 +76,7 @@
   - [SQL](https://www.javatpoint.com/sql-tutorial) tutorial,  
   - [Database Management System](https://www.javatpoint.com/dbms-tutorial) tutorial,  
   - [SQLite](https://www.sqlitetutorial.net/sqlite-python/) w Pythonie, 
-  - [Wstęp do SQL](https://gvwilson.github.io/sql-tutorial/) dla inżynierów danych,
+  - [Wstęp do SQL](https://third-bit.com/sql/) dla inżynierów danych,
   - [Tutorial SQLite](https://www.tutorialspoint.com/sqlite/sqlite_python.htm) w Pythonie,
   - [SQLite](https://sqlitebrowser.org/) browser,
   - [sqlite-web](https://github.com/coleifer/sqlite-web) - web-based SQLite database browser written in Python,  
