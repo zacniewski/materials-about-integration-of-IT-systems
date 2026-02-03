@@ -18,6 +18,7 @@ Wymiar: 20 godzin wykładów, 60 godzin laboratoriów.
 10. [Wykład 10: Bezpieczeństwo, skalowalność i monitorowanie systemów](lectures/wyklad_10.md)
 
 ### Laboratoria (60h - 10 zadań po 6h)
+0. [Zanim zaczniesz: Wymagane konta](labs/before_you_start.md)
 1. [Laboratorium 1: Git, GitHub i przygotowanie środowiska Django](labs/lab_01.md)
 2. [Laboratorium 2: Lokalna aplikacja Django – System Blogowy](labs/lab_02.md)
 3. [Laboratorium 3: Lokalna aplikacja Django – Lista zadań (To-Do)](labs/lab_03.md)

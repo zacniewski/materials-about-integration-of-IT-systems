@@ -3,7 +3,7 @@
 ## Czas trwania: 6 godzin
 
 ### Cel:
-Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie lokalnego środowiska programistycznego dla frameworka Django.
+Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie lokalnego środowiska programistycznego dla frameworka Django. Przed rozpoczęciem zapoznaj się z listą wymaganych kont w pliku [before_you_start.md](before_you_start.md).
 
 ### Zadania i ćwiczenia:
 1. **Konfiguracja środowiska (2h):**
