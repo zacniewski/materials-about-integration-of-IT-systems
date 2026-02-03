@@ -1,91 +1,58 @@
-# Laboratorium 4: Wielokontenerowe środowisko Django i PostgreSQL
+# Laboratorium 4: Tworzenie REST API w Django
 
-## Czas trwania: 10 godzin
+## Czas trwania: 6 godzin
 
 ### Cel:
-Integracja aplikacji Django z bazą danych PostgreSQL w ramach jednego projektu przy użyciu Docker Compose.
+Zrozumienie koncepcji REST API oraz implementacja punktów końcowych (endpoints) dostarczających dane w formacie JSON bez użycia zewnętrznych bibliotek (jak DRF) w celu zrozumienia podstaw.
 
 ### Zadania i ćwiczenia:
 
-**Architektura wielokontenerowa:**
-```mermaid
-graph TD
-    Client((Użytkownik)) --> Proxy[Docker Host / Port 8000]
-    Proxy --> Web[Service: web / Django]
-    Web --> Network[Docker Internal Network]
-    Network --> DB[Service: db / PostgreSQL]
-    DB --> Volume[Docker Volume: postgres_data]
+1. **Przygotowanie danych (2h):**
+   - Wykorzystanie modeli z poprzednich laboratoriów (np. `Post` lub `Task`) lub stworzenie nowego prostego modelu `Product(name, price, description)`.
+
+2. **Implementacja widoków JSON (4h):**
+   - Użycie `JsonResponse` do zwracania list obiektów i pojedynczych rekordów.
+   - Obsługa błędów (np. 404 w formacie JSON).
+
+**Kod źródłowy `api/views.py`:**
+```python
+from django.http import JsonResponse
+from blog.models import Post
+
+def api_post_list(request):
+    posts = Post.objects.all()
+    data = {
+        "results": list(posts.values("id", "title", "author__username", "published_at"))
+    }
+    return JsonResponse(data)
+
+def api_post_detail(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+        data = {
+            "id": post.id,
+            "title": post.title,
+            "content": post.content,
+            "author": post.author.username
+        }
+        return JsonResponse(data)
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post not found"}, status=404)
 ```
 
-1. **Definiowanie usług w Docker Compose (3h):**
-   - Stworzenie pliku `docker-compose.yml` w wersji 3.8+.
-   - Konfiguracja usługi `db`: obraz `postgres:15`, zmienne `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`.
-   - Konfiguracja usługi `web`: budowanie z lokalnego `Dockerfile`, mapowanie portu `8000:8000`.
+3. **Routing API (2h):**
+   - Stworzenie dedykowanego pliku `urls.py` dla API (np. `/api/posts/`).
 
-**Przykładowy `docker-compose.yml`:**
-```yaml
-version: '3.8'
-
-services:
-  db:
-    image: postgres:15
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=django_db
-      - POSTGRES_USER=django_user
-      - POSTGRES_PASSWORD=django_password
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U django_user -d django_db"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
-    ports:
-      - "8000:8000"
-    environment:
-      - DEBUG=True
-      - SECRET_KEY=dev_secret_key
-      - DATABASE_URL=postgres://django_user:django_password@db:5432/django_db
-    depends_on:
-      db:
-        condition: service_healthy
-
-volumes:
-  postgres_data:
-```
-
-2. **Komunikacja i zmienne środowiskowe (2h):**
-   - Wykorzystanie pliku `.env` do przechowywania poświadczeń bazy danych.
-   - Odwoływanie się w `settings.py` do hosta bazy danych pod nazwą usługi zdefiniowanej w compose (`db`).
-
-| Usługa | Host | Port | Zastosowanie |
-| :--- | :--- | :--- | :--- |
-| `web` | `localhost` | `8000` | Dostęp z przeglądarki hosta |
-| `db` | `db` | `5432` | Dostęp z kontenera `web` |
-
-3. **Zapewnienie trwałości danych (3h):**
-   - Konfiguracja wolumenów (volumes) dla kontenera bazy danych, aby dane nie znikały po usunięciu kontenera.
-   - Mapowanie: `postgres_data:/var/lib/postgresql/data`.
-
-4. **Orkiestracja i zdrowie usług (2h):**
-   - Użycie `depends_on` w usłudze `web`.
-   - Implementacja mechanizmu czekania na bazę danych (np. skrypt `wait-for-it.sh` lub prosty `healthcheck`).
-   - Polecenia: `docker-compose up`, `docker-compose down`, `docker-compose exec web python manage.py migrate`.
+4. **Testowanie (2h):**
+   - Testowanie punktów końcowych za pomocą przeglądarki lub narzędzia `curl` / Postman.
 
 ### Lista kontrolna (Checklist):
-- [ ] Czy plik `docker-compose.yml` zawiera co najmniej dwie usługi (`web` i `db`)?
-- [ ] Czy poświadczenia bazy danych są wczytywane z pliku `.env`?
-- [ ] Czy po zrestartowaniu kontenerów dane w bazie zostają zachowane?
-- [ ] Czy wykonano migracje bazy danych wewnątrz kontenera?
-- [ ] Czy aplikacja poprawnie łączy się z bazą `db` po sieci wewnętrznej Dockera?
+- [ ] Czy punkty końcowe zwracają poprawny Content-Type (`application/json`)?
+- [ ] Czy struktura JSON jest zgodna z założeniami?
+- [ ] Czy zapytanie o nieistniejący zasób zwraca błąd 404 w formacie JSON?
+- [ ] Czy pola typu ForeignKey (np. autor) są poprawnie serializowane (np. jako nazwa użytkownika, a nie ID)?
 
 ### Wymagania na zaliczenie:
-- Kompletny, działający projekt uruchamiany poleceniem `docker-compose up`.
-- Poprawnie skonfigurowane wolumeny dla PostgreSQL.
-- Brak haseł zapisanych bezpośrednio w pliku `docker-compose.yml`.
+- Minimum dwa działające endpointy (lista i szczegóły).
+- Poprawna obsługa kodów statusu HTTP.
+- Dokumentacja punktów końcowych w pliku README.

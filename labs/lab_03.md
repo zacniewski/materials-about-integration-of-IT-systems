@@ -1,91 +1,71 @@
-# Laboratorium 3: Konteneryzacja aplikacji Django za pomocą Dockera
+# Laboratorium 3: Lokalna aplikacja Django – Lista zadań (To-Do)
 
-## Czas trwania: 10 godzin
+## Czas trwania: 6 godzin
 
 ### Cel:
-Opanowanie narzędzia Docker w zakresie tworzenia obrazów dla aplikacji Django oraz zarządzania kontenerami lokalnie.
+Stworzenie aplikacji do zarządzania zadaniami z wykorzystaniem systemów formularzy Django oraz obsługą autoryzacji użytkowników.
 
 ### Zadania i ćwiczenia:
 
-**Struktura konteneryzacji:**
-```mermaid
-graph LR
-    Host[Host Machine] --> Docker[Docker Engine]
-    Docker --> Container[Container: Django App]
-    Container --> Python[Python Runtime]
-    Container --> Code[Django Code]
-    Container --> Deps[Dependencies]
+1. **Inicjalizacja aplikacji i modeli (2h):**
+   - Stworzenie aplikacji `todo`.
+   - Model `Task`: `user` (ForeignKey), `title`, `description`, `completed` (BooleanField), `created_at`.
+
+**Kod źródłowy `todo/models.py`:**
+```python
+from django.db import models
+from django.contrib.auth.models import User
+
+class Task(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=200)
+    description = models.TextField(null=True, blank=True)
+    completed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['completed']
 ```
 
-1. **Instalacja i podstawy Docker CLI (2h):**
-   - Instalacja Docker Desktop (lub Docker Engine na Linux).
-   - Uruchamianie testowych kontenerów (`docker run hello-world`).
-   - Podstawowe komendy: `docker ps`, `docker images`, `docker stop`, `docker rm`.
+2. **Logika biznesowa i widoki (4h):**
+   - Wykorzystanie widoków opartych na klasach: `LoginView`, `RegisterPage` (opcjonalnie), `TaskList`, `TaskCreate`, `TaskUpdate`, `DeleteView`.
+   - Zapewnienie, że użytkownik widzi tylko swoje zadania.
 
-2. **Tworzenie Dockerfile dla Django (4h):**
-   - Wybór obrazu bazowego: `python:3.11-slim`.
-   - Ustawienie zmiennych środowiskowych (`PYTHONDONTWRITEBYTECODE`, `PYTHONUNBUFFERED`).
-   - Kopiowanie `requirements.txt` i instalacja zależności.
-   - Kopiowanie kodu aplikacji.
-   - Definiowanie `CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]`.
+**Kod źródłowy `todo/views.py` (filtrowanie danych):**
+```python
+from django.views.generic.list import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Task
 
-**Przykładowy `Dockerfile` dla aplikacji Django:**
-```dockerfile
-# Obraz bazowy
-FROM python:3.11-slim
+class TaskList(LoginRequiredMixin, ListView):
+    model = Task
+    context_object_name = 'tasks'
 
-# Środowisko
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-# Katalog roboczy
-WORKDIR /app
-
-# Instalacja zależności systemowych (opcjonalnie)
-RUN apt-get update && apt-get install -y build-essential libpq-dev && rm -rf /var/lib/apt/lists/*
-
-# Instalacja zależności Python
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Kopiowanie kodu projektu
-COPY . /app/
-
-# Port na którym pracuje kontener
-EXPOSE 8000
-
-# Komenda startowa
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = context['tasks'].filter(user=self.request.user)
+        context['count'] = context['tasks'].filter(completed=False).count()
+        return context
 ```
 
-3. **Optymalizacja obrazu i .dockerignore (2h):**
-   - Stworzenie pliku `.dockerignore` (wykluczenie `venv`, `.git`, `__pycache__`).
-   - Analiza warstw obrazu.
-   - Zmiana użytkownika wewnątrz kontenera na non-root dla zwiększenia bezpieczeństwa.
+3. **Formularze i obsługa POST (2h):**
+   - Automatyczne przypisywanie zalogowanego użytkownika do tworzonego zadania.
 
-**Przykładowy `.dockerignore`:**
-```text
-venv
-.git
-__pycache__
-*.pyc
-db.sqlite3
-.env
-```
-
-4. **Budowanie i uruchamianie obrazu (2h):**
-   - Budowanie: `docker build -t moja-aplikacja-django .`.
-   - Uruchamianie z mapowaniem portów: `docker run -p 8000:8000 moja-aplikacja-django`.
-   - Przekazywanie zmiennych środowiskowych przez flagę `-e`.
+4. **Interfejs użytkownika (2h):**
+   - Stylowanie listy zadań (oznaczenie zadań zakończonych).
+   - Dodanie przycisków Edytuj/Usuń.
 
 ### Lista kontrolna (Checklist):
-- [ ] Czy plik `Dockerfile` znajduje się w katalogu głównym projektu?
-- [ ] Czy obraz buduje się bez błędów?
-- [ ] Czy plik `.dockerignore` poprawnie pomija folder wirtualnego środowiska?
-- [ ] Czy aplikacja wewnątrz kontenera jest dostępna pod adresem `localhost:8000`?
-- [ ] Czy rozmiar obrazu jest zoptymalizowany (użycie wersji `-slim`)?
+- [ ] Czy dostęp do listy zadań wymaga zalogowania?
+- [ ] Czy użytkownik A widzi zadania użytkownika B? (Powinien widzieć tylko swoje)
+- [ ] Czy można oznaczyć zadanie jako zakończone?
+- [ ] Czy nowo utworzone zadanie jest automatycznie przypisywane do zalogowanego profilu?
+- [ ] Czy działa usuwanie zadań z potwierdzeniem?
 
 ### Wymagania na zaliczenie:
-- Poprawny plik `Dockerfile`.
-- Pomyślne zbudowanie obrazu i uruchomienie kontenera lokalnie.
-- Udokumentowanie logów z poprawnego startu aplikacji w kontenerze.
+- Pełny cykl CRUD dla zadań.
+- Poprawnie działający mechanizm logowania i wylogowania.
+- Zastosowanie `LoginRequiredMixin` w widokach chronionych.

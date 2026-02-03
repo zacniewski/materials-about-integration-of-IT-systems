@@ -1,103 +1,61 @@
-# Laboratorium 5: Automatyzacja CI/CD z GitHub Actions i Render.com
+# Laboratorium 5: Integracja z zewnętrznymi API
 
-## Czas trwania: 10 godzin
+## Czas trwania: 6 godzin
 
 ### Cel:
-Wdrożenie potoku ciągłej integracji i ciągłego dostarczania (CI/CD) dla aplikacji Django, automatyzującego testy i wdrożenie na platformę Render.com.
+Nabycie umiejętności pobierania danych z zewnętrznych serwisów (API) i wyświetlania ich w aplikacji Django.
 
 ### Zadania i ćwiczenia:
 
-**Przepływ CI/CD:**
-```mermaid
-graph LR
-    Dev[Developer] --> Push[git push]
-    Push --> GHA[GitHub Actions CI]
-    GHA --> Tests[Run Tests / Linter]
-    Tests -- Success --> CD[GitHub Actions CD]
-    CD --> Deploy[Deploy to Render.com via Hook]
-    Deploy --> Live[Live Application]
-```
+1. **Wybór API (1h):**
+   - Wybierz jedno z darmowych API: Open-Meteo (pogoda), REST Countries (informacje o krajach) lub JSONPlaceholder.
 
-1. **Przygotowanie testów jednostkowych (2h):**
-   - Napisanie prostych testów dla modeli lub widoków Django w `tests.py`.
-   - Uruchamianie testów lokalnie: `python manage.py test`.
+2. **Logika pobierania danych (3h):**
+   - Wykorzystanie biblioteki `requests` do wysyłania zapytań HTTP.
+   - Analiza odpowiedzi JSON.
 
-**Przykładowy test Django (`base/tests.py`):**
+**Przykład logiki (pobieranie danych o kraju):**
 ```python
-from django.test import TestCase
-from django.urls import reverse
+import requests
 
-class BasicTest(TestCase):
-    def test_home_page_status_code(self):
-        response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
-
-    def test_simple_logic(self):
-        self.assertEqual(1 + 1, 2)
+def get_country_info(country_name):
+    url = f"https://restcountries.com/v3.1/name/{country_name}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()[0]
+    return None
 ```
 
-2. **Konfiguracja GitHub Actions - CI (3h):**
-   - Utworzenie pliku `.github/workflows/django_ci.yml`.
-   - Konfiguracja etapów: instalacja zależności, uruchomienie lintera (np. `flake8`) oraz testów.
-   - Wyzwalanie workflow przy każdym `push` do gałęzi `main`.
+3. **Integracja z Django (4h):**
+   - Stworzenie formularza, w którym użytkownik wpisuje nazwę kraju lub miasta.
+   - Stworzenie widoku, który przetwarza formularz, pobiera dane z API i przekazuje je do szablonu.
 
-**Przykładowy workflow CI (`.github/workflows/django_ci.yml`):**
-```yaml
-name: Django CI
+**Kod źródłowy widoku (`weather/views.py`):**
+```python
+from django.shortcuts import render
+import requests
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Run Tests
-      run: |
-        python manage.py test
+def index(request):
+    data = {}
+    if 'city' in request.GET:
+        city = request.GET['city']
+        # Przykładowe zapytanie do API pogodowego
+        url = f"https://api.open-meteo.com/v1/forecast?latitude=52.23&longitude=21.01&current_weather=true"
+        response = requests.get(url)
+        data = response.json()
+    return render(request, 'weather/index.html', {'data': data})
 ```
 
-3. **Automatyzacja wdrożenia - CD (3h):**
-   - Wykorzystanie "Deploy Hooks" w Render.com.
-   - Dodanie kroku w GitHub Actions, który po pozytywnym przejściu testów wyśle zapytanie do Render (np. za pomocą `curl`), aby zainicjować nowe wdrożenie.
-   - Przechowywanie adresu webhooka w "GitHub Secrets".
-
-**Krok CD do dodania w workflow:**
-```yaml
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Deploy to Render
-        run: curl -f ${{ secrets.RENDER_DEPLOY_HOOK }}
-```
-
-4. **Wdrożenie oparte na kontenerach (opcjonalnie) (2h):**
-   - Budowanie obrazu Docker w GitHub Actions.
-   - Wysłanie obrazu do Docker Hub lub GitHub Container Registry.
-   - Konfiguracja Render do pobierania nowej wersji obrazu.
+4. **Wyświetlanie wyników (2h):**
+   - Prezentacja pobranych danych w czytelny sposób (np. tabela lub karty).
 
 ### Lista kontrolna (Checklist):
-- [ ] Czy w repozytorium znajduje się folder `.github/workflows/` z plikiem YAML?
-- [ ] Czy potok CI przechodzi pomyślnie (zielony znacznik na GitHub)?
-- [ ] Czy testy Django są uruchamiane automatycznie przy każdym wypchnięciu kodu?
-- [ ] Czy "Deploy Hook" z Render.com został dodany do sekretów repozytorium?
-- [ ] Czy zmiana w kodzie jest automatycznie widoczna na serwerze po kilku minutach?
+- [ ] Czy zainstalowano bibliotekę `requests` i dodano ją do `requirements.txt`?
+- [ ] Czy aplikacja obsługuje sytuację, gdy API jest niedostępne (błąd połączenia)?
+- [ ] Czy dane z JSON są poprawnie mapowane na elementy w szablonie HTML?
+- [ ] Czy formularz zabezpieczony jest przed pustymi zapytaniami?
 
 ### Wymagania na zaliczenie:
-- Poprawnie skonfigurowany i działający workflow w GitHub Actions.
-- Udowodnienie automatycznego wdrożenia nowej funkcjonalności na Render.com.
-- Wszystkie testy w CI muszą być zielone.
+- Działający formularz pobierający dane w czasie rzeczywistym z wybranego API.
+- Poprawna obsługa błędów (np. informacja o nieznalezieniu miasta/kraju).
+- Wyświetlenie minimum 3 różnych informacji z odpowiedzi API (np. temperatura, prędkość wiatru, opis).

@@ -1,111 +1,85 @@
-# Laboratorium 6: Projekt końcowy – zintegrowany system z CI/CD
+# Laboratorium 6: Wdrażanie aplikacji Django na platformę Render.com
 
-## Czas trwania: 10 godzin
+## Czas trwania: 6 godzin
 
 ### Cel:
-Samodzielne zaprojektowanie i wdrożenie kompletnego systemu informatycznego w Django, zintegrowanego przy użyciu poznanych technologii (Git, Docker, Render.com, GitHub Actions).
+Zrozumienie modelu Platform as a Service (PaaS) oraz nabycie umiejętności wdrażania i konfiguracji aplikacji Django na platformie Render.com.
 
-### Wybór projektu (Scenariusze) i szczegółowe wytyczne:
+### Zadania i ćwiczenia:
 
-#### 1. Aplikacja typu 'Blog' (PaaS - Render.com)
-**Cel:** Stworzenie systemu publikacji postów z bazą danych PostgreSQL.
+**Architektura aplikacji na PaaS (Render.com):**
+```mermaid
+graph TD
+    User((Użytkownik)) --> Internet[Internet]
+    Internet --> Render[Render.com Load Balancer]
+    Render --> App[Django App / Gunicorn]
+    App --> Static[WhiteNoise / Pliki statyczne]
+    App --> DB[(PostgreSQL Database)]
+    App --> Env[Zmienne środowiskowe]
+```
 
-*   **Modele:** `Post(title, content, author, created_at, category)`.
-*   **Struktura:**
-    ```text
-    blog_project/
-    ├── posts/              # Aplikacja obsługująca posty
-    │   ├── models.py       # Definicja Post i Category
-    │   ├── views.py        # Lista postów i szczegóły
-    │   └── templates/      # Szablony HTML (list.html, detail.html)
-    ├── core/               # Główne ustawienia
-    └── requirements.txt    # django, gunicorn, whitenoise, dj-database-url, psycopg2-binary
-    ```
-*   **Kluczowe kroki:**
-    1.  Zaimplementuj modele i wykonaj migracje lokalnie.
-    2.  Stwórz prosty interfejs (widoki Generyczne `ListView`, `DetailView`).
-    3.  Skonfiguruj `settings.py` pod Render.com (zgodnie z Lab 2).
-    4.  Wdróż na Render i skonfiguruj bazę PostgreSQL.
+1. **Dostosowanie Django do standardów PaaS (2h):**
+   - Instalacja `gunicorn` (serwer produkcyjny) oraz `whitenoise` (obsługa plików statycznych).
+   - Konfiguracja `ALLOWED_HOSTS` w `settings.py`.
+   - Stworzenie pliku `requirements.txt` (`pip freeze > requirements.txt`).
 
-#### 2. Aplikacja typu 'To-Do' (PaaS - Render.com)
-**Cel:** Zarządzanie listą zadań z autoryzacją użytkowników.
+**Przykładowa konfiguracja `settings.py` dla PaaS:**
+```python
+import os
+import dj_database_url
 
-*   **Modele:** `Task(user, title, completed, created_at)`.
-*   **Logika:** Każdy użytkownik musi być zalogowany, aby widzieć swoje zadania (`LoginRequiredMixin`).
-*   **Tabela funkcjonalności:**
-    | Funkcja | Metoda HTTP | Opis |
-    | :--- | :--- | :--- |
-    | Lista zadań | GET | Wyświetla tylko zadania zalogowanego użytkownika |
-    | Dodaj zadanie | POST | Tworzy nowe zadanie przypisane do `request.user` |
-    | Zmień status | POST | Przełącza flagę `completed` |
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-default')
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME', 'localhost')]
 
-#### 3. Aplikacja REST API (PaaS - Render.com)
-**Cel:** Udostępnienie danych w formacie JSON przy użyciu czystego Django (`JsonResponse`).
+# WhiteNoise
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # ...
+]
 
-*   **Wymagane biblioteki:** `django-cors-headers`.
-*   **Przykład widoku API:**
-    ```python
-    from django.http import JsonResponse
-    from .models import Item
+# Database
+DATABASES = {
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600
+    )
+}
+```
 
-    def item_list(request):
-        items = Item.objects.all().values()
-        return JsonResponse(list(items), safe=False)
-    ```
-*   **Kluczowe kroki:**
-    1.  Zdefiniuj modele w `models.py`.
-    2.  Stwórz widok zwracający `JsonResponse` z danymi modelu (użyj `.values()`).
-    3.  Skonfiguruj ścieżki w `urls.py`.
-    4.  Przetestuj endpointy w przeglądarce lub narzędziu Postman.
+2. **Przygotowanie do wdrożenia na Render.com (3h):**
+   - Założenie konta na platformie [Render.com](https://render.com).
+   - Utworzenie nowej usługi "Web Service".
+   - Połączenie repozytorium GitHub z Render.
+   - Konfiguracja "Build Command": `pip install -r requirements.txt && python manage.py collectstatic --noinput`.
+   - Konfiguracja "Start Command": `gunicorn core.wsgi:application`.
 
-#### 4. Aplikacja w środowisku Dockera (np. Pogodowa)
-**Cel:** Pobieranie i wyświetlanie danych z zewnętrznego API w kontenerze.
+3. **Bezpieczeństwo i zmienne środowiskowe (2h):**
+   - Przeniesienie `SECRET_KEY` i `DEBUG` do zmiennych środowiskowych (moduł `os` lub `python-dotenv`).
+   - Konfiguracja zmiennych w panelu Render (Dashboard -> Env Vars).
+   - Ukrycie wrażliwych danych w repozytorium.
 
-*   **Inspiracja:** Wykorzystaj skrypt `examples/open_meteo.py` lub `examples/rest_countries.py`.
-*   **Struktura aplikacji:**
-    ```text
-    weather_app/
-    ├── app.py              # Logika pobierania danych (requests.get)
-    ├── templates/          # Wyświetlanie wyników
-    ├── Dockerfile          # Instrukcja budowania obrazu
-    └── docker-compose.yml  # Orkiestracja (np. aplikacja + Redis do cache)
-    ```
-*   **Przykładowy `docker-compose.yml` dla tego zadania:**
-    ```yaml
-    services:
-      web:
-        build: .
-        ports:
-          - "8000:8000"
-        environment:
-          - API_KEY=${API_KEY}
-    ```
+| Klucz | Przykładowa Wartość | Opis |
+| :--- | :--- | :--- |
+| `SECRET_KEY` | `twój-bardzo-długi-klucz` | Klucz kryptograficzny Django |
+| `DEBUG` | `False` | Tryb debugowania (zawsze False na produkcji) |
+| `DATABASE_URL` | `postgres://user:pass@host:port/db` | URL do bazy danych PostgreSQL |
 
-### Zadania i kroki realizacji (Checklista):
+4. **Integracja z bazą danych PostgreSQL (3h):**
+   - Utworzenie darmowej bazy danych PostgreSQL na Render.
+   - Instalacja `dj-database-url` oraz `psycopg2-binary`.
+   - Konfiguracja połączenia z bazą danych w `settings.py` przy użyciu zmiennej środowiskowej `DATABASE_URL`.
+   - Wykonanie migracji w chmurze (automatycznie przy starcie lub ręcznie).
 
-#### Faza 1: Planowanie i Inicjalizacja
-- [ ] Zdefiniowanie tematu i zakresu funkcjonalnego.
-- [ ] Utworzenie repozytorium na GitHub i lokalna inicjalizacja projektu Django.
-- [ ] Przygotowanie pliku README.md z opisem projektu.
-
-#### Faza 2: Implementacja i Konteneryzacja
-- [ ] Stworzenie logiki aplikacji (Modele, Widoki, Szablony/JSON).
-- [ ] Przygotowanie pliku `requirements.txt`.
-- [ ] Stworzenie poprawnego pliku `Dockerfile` (zgodnie z Lab 3).
-- [ ] Stworzenie pliku `docker-compose.yml` dla środowiska deweloperskiego (zgodnie z Lab 4).
-
-#### Faza 3: CI/CD i Wdrożenie (dla projektów 1-3)
-- [ ] Konfiguracja bazy danych PostgreSQL na Render.com.
-- [ ] Skonfigurowanie zmiennych środowiskowych w panelu Render.
-- [ ] Przygotowanie workflow GitHub Actions (Testy + Auto-deploy).
-- [ ] Pierwsze udane wdrożenie produkcyjne.
-
-#### Faza 4: Dokumentacja i Testy
-- [ ] Napisanie testów jednostkowych pokrywających kluczowe funkcje.
-- [ ] Dokumentacja w README: jak uruchomić projekt lokalnie (Docker) i gdzie jest dostępny w chmurze.
+### Lista kontrolna (Checklist):
+- [ ] Czy zainstalowano i skonfigurowano `gunicorn` oraz `whitenoise`?
+- [ ] Czy plik `requirements.txt` jest aktualny?
+- [ ] Czy aplikacja jest widoczna pod publicznym adresem `*.onrender.com`?
+- [ ] Czy `DEBUG` jest ustawiony na `False` w środowisku produkcyjnym?
+- [ ] Czy baza danych PostgreSQL na Render jest połączona z aplikacją?
 
 ### Wymagania na zaliczenie:
-- Repozytorium na GitHub z pełną historią zmian (znaczące commity).
-- Działająca aplikacja (link do Render.com lub instrukcja `docker-compose up`).
-- Poprawnie skonfigurowany potok CI/CD (zielone buildy).
-- Prezentacja projektu i odpowiedzi na pytania dotyczące integracji elementów systemu.
+- Działający link do publicznie dostępnej aplikacji Django na Render.com.
+- Udowodnienie poprawnej integracji z bazą danych (np. działający panel admina w chmurze).
+- Poprawna konfiguracja zmiennych środowiskowych.

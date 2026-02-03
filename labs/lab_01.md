@@ -1,6 +1,6 @@
 # Laboratorium 1: Git, GitHub i przygotowanie środowiska Django
 
-## Czas trwania: 10 godzin
+## Czas trwania: 6 godzin
 
 ### Cel:
 Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie lokalnego środowiska programistycznego dla frameworka Django.
