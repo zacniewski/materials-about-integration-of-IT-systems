@@ -3,7 +3,7 @@
 ## Czas trwania: 2 godziny
 
 ### Agenda:
-1. Przegląd rynku: Heroku, Render, AWS Elastic Beanstalk, Google App Engine, Azure App Service.
+1. Przegląd rynku: Heroku, Render, Vercel, AWS Elastic Beanstalk, Google App Engine, Azure App Service.
 2. Usługi dodane (Add-ons): Bazy danych, kolejki, systemy logowania.
 3. Zarządzanie zmiennymi środowiskowymi (Environment Variables).
 4. Skalowanie poziome i pionowe w ramach PaaS.
@@ -15,13 +15,14 @@
 #### 1. Przegląd rynku PaaS
 Wybór platformy zależy od technologii, budżetu i wymagań dotyczących infrastruktury.
 
-| Dostawca | Cechy charakterystyczne | Zastosowanie |
-| :--- | :--- | :--- |
-| **Heroku** | Pionier PaaS, bardzo prosty w użyciu, świetne CLI. | MVP, małe i średnie aplikacje. |
-| **Render** | Nowoczesna alternatywa dla Heroku, natywne wsparcie dla Docker i statycznych stron. | Nowoczesne web appy. |
-| **AWS Elastic Beanstalk** | Automatyzuje wdrażanie w ekosystemie AWS. | Skomplikowane systemy wymagające integracji z AWS. |
-| **Azure App Service** | Silna integracja z .NET i Active Directory. | Rozwiązania korporacyjne (Enterprise). |
-| **Google App Engine** | Skaluje się od zera, silne wsparcie dla Python/Go/Java. | Aplikacje o bardzo zmiennym natężeniu ruchu. |
+| Dostawca | Cechy charakterystyczne | Zastosowanie | Plan darmowy |
+| :--- | :--- | :--- | :--- |
+| **Heroku** | Pionier PaaS, bardzo prosty w użyciu, świetne CLI. | MVP, małe i średnie aplikacje. | Brak (płatne od 2022). |
+| **Render** | Nowoczesna alternatywa dla Heroku, wsparcie Docker. | Nowoczesne web appy, statyczne strony. | Tak (z uśpieniem instancji). |
+| **Vercel** | Skupiony na Frontendzie i Next.js, świetne UX. | Aplikacje frontendowe, SSR, Jamstack. | Tak (dla projektów hobbystycznych). |
+| **AWS Elastic Beanstalk** | Automatyzuje wdrażanie w ekosystemie AWS. | Skomplikowane systemy, integracja z AWS. | Tak (w ramach AWS Free Tier). |
+| **Azure App Service** | Silna integracja z .NET i Active Directory. | Rozwiązania korporacyjne (Enterprise). | Tak (poziom F1 Free). |
+| **Google App Engine** | Skaluje się od zera, wsparcie Python/Go/Java. | Aplikacje o zmiennym natężeniu ruchu. | Tak (dzienne limity bezpłatne). |
 
 #### 2. Usługi dodane (Add-ons / Managed Services)
 Platformy PaaS oferują "gotowe do użycia" usługi, które integrują się z naszą aplikacją.
