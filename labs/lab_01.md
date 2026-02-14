@@ -3,15 +3,14 @@
 ## Czas trwania: 6 godzin
 
 ### Cel:
-Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie lokalnego środowiska programistycznego dla frameworka Django. Przed rozpoczęciem zapoznaj się z listą wymaganych kont w pliku [before_you_start.md](before_you_start.md).
+Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie lokalnego środowiska programistycznego dla frameworka Django. Szczególny nacisk położono na poprawne dokumentowanie pracy przy użyciu Markdown oraz konfigurację bezpiecznego dostępu przez SSH. Przed rozpoczęciem zapoznaj się z listą wymaganych kont w pliku [before_you_start.md](before_you_start.md).
 
 ### Zadania i ćwiczenia:
-1. **Konfiguracja środowiska (2h):**
+1. **Konfiguracja środowiska i Markdown (2h):**
    - Instalacja Git oraz Python.
    - Konfiguracja nazwy użytkownika i emaila w Git.
    - Generowanie i dodawanie kluczy SSH do konta GitHub.
-   - Tworzenie wirtualnego środowiska (`python -m venv venv`).
-   - Instalacja Django (`pip install django`).
+   - **Zadanie Markdown:** Stwórz plik `README.md` w swoim folderze roboczym. Użyj nagłówków, list, pogrubienia oraz dodaj link do oficjalnej dokumentacji Django.
 
 | Narzędzie | Komenda | Opis |
 | :--- | :--- | :--- |

@@ -1,71 +1,36 @@
-# Laboratorium 3: Lokalna aplikacja Django – Lista zadań (To-Do)
+# Laboratorium 3: Tworzenie REST API w Django i integracja z zewnętrznymi usługami
 
 ## Czas trwania: 6 godzin
 
 ### Cel:
-Stworzenie aplikacji do zarządzania zadaniami z wykorzystaniem systemów formularzy Django oraz obsługą autoryzacji użytkowników.
+Rozbudowa aplikacji o interfejs API oraz integracja z zewnętrznymi źródłami danych. Nauka wykorzystania biblioteki `requests` oraz formatu JSON.
 
 ### Zadania i ćwiczenia:
 
-1. **Inicjalizacja aplikacji i modeli (2h):**
-   - Stworzenie aplikacji `todo`.
-   - Model `Task`: `user` (ForeignKey), `title`, `description`, `completed` (BooleanField), `created_at`.
+1. **Praca na gałęziach (Git) (0.5h):**
+   - Stwórz nową gałąź: `git checkout -b feature/api-integration`.
 
-**Kod źródłowy `todo/models.py`:**
-```python
-from django.db import models
-from django.contrib.auth.models import User
+2. **Proste API w Django (2h):**
+   - Stwórz widok w `blog/views.py` zwracający listę postów w formacie JSON (użyj `JsonResponse`).
+   - Przetestuj działanie endpointu w przeglądarce.
+   - **Commit:** "Add basic JSON API endpoint for posts".
 
-class Task(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    title = models.CharField(max_length=200)
-    description = models.TextField(null=True, blank=True)
-    completed = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+3. **Integracja z zewnętrznym API (2.5h):**
+   - Stwórz nową aplikację `external_data`.
+   - Napisz widok, który pobiera dane o pogodzie (np. z Open-Meteo API) lub przykładowe dane z JSONPlaceholder przy użyciu biblioteki `requests`.
+   - Wyświetl pobrane dane w nowym szablonie.
+   - **Commit:** "Integrate external API using requests library".
 
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        ordering = ['completed']
-```
-
-2. **Logika biznesowa i widoki (4h):**
-   - Wykorzystanie widoków opartych na klasach: `LoginView`, `RegisterPage` (opcjonalnie), `TaskList`, `TaskCreate`, `TaskUpdate`, `DeleteView`.
-   - Zapewnienie, że użytkownik widzi tylko swoje zadania.
-
-**Kod źródłowy `todo/views.py` (filtrowanie danych):**
-```python
-from django.views.generic.list import ListView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Task
-
-class TaskList(LoginRequiredMixin, ListView):
-    model = Task
-    context_object_name = 'tasks'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tasks'] = context['tasks'].filter(user=self.request.user)
-        context['count'] = context['tasks'].filter(completed=False).count()
-        return context
-```
-
-3. **Formularze i obsługa POST (2h):**
-   - Automatyczne przypisywanie zalogowanego użytkownika do tworzonego zadania.
-
-4. **Interfejs użytkownika (2h):**
-   - Stylowanie listy zadań (oznaczenie zadań zakończonych).
-   - Dodanie przycisków Edytuj/Usuń.
+4. **Wykorzystanie przykładów (1h):**
+   - Zapoznaj się z plikami w folderze `examples/` (np. `json_placeholder.py`). Wykorzystaj zawartą tam logikę w swojej aplikacji.
 
 ### Lista kontrolna (Checklist):
-- [ ] Czy dostęp do listy zadań wymaga zalogowania?
-- [ ] Czy użytkownik A widzi zadania użytkownika B? (Powinien widzieć tylko swoje)
-- [ ] Czy można oznaczyć zadanie jako zakończone?
-- [ ] Czy nowo utworzone zadanie jest automatycznie przypisywane do zalogowanego profilu?
-- [ ] Czy działa usuwanie zadań z potwierdzeniem?
+- [ ] Czy stworzono nową gałąź do pracy nad API?
+- [ ] Czy `JsonResponse` poprawnie zwraca dane z bazy?
+- [ ] Czy obsłużono ewentualne błędy połączenia z zewnętrznym API?
+- [ ] Czy dane z zewnętrznego API są czytelnie sformatowane w szablonie?
 
 ### Wymagania na zaliczenie:
-- Pełny cykl CRUD dla zadań.
-- Poprawnie działający mechanizm logowania i wylogowania.
-- Zastosowanie `LoginRequiredMixin` w widokach chronionych.
+- Działający endpoint API zwracający dane w formacie JSON.
+- Podstrona wyświetlająca dane pobrane dynamicznie z zewnętrznego serwisu.
+- Historia commitów na gałęzi `feature/api-integration`.

@@ -1,58 +1,33 @@
-# Laboratorium 4: Tworzenie REST API w Django
+# Laboratorium 4: Konteneryzacja aplikacji Django za pomocą Dockera
 
 ## Czas trwania: 6 godzin
 
 ### Cel:
-Zrozumienie koncepcji REST API oraz implementacja punktów końcowych (endpoints) dostarczających dane w formacie JSON bez użycia zewnętrznych bibliotek (jak DRF) w celu zrozumienia podstaw.
+Przygotowanie aplikacji do pracy w środowisku izolowanym przy użyciu Dockera. Konfiguracja `Dockerfile` oraz `docker-compose`.
 
 ### Zadania i ćwiczenia:
 
-1. **Przygotowanie danych (2h):**
-   - Wykorzystanie modeli z poprzednich laboratoriów (np. `Post` lub `Task`) lub stworzenie nowego prostego modelu `Product(name, price, description)`.
+1. **Przygotowanie środowiska (1h):**
+   - Stwórz gałąź `feature/dockerization`.
+   - Upewnij się, że masz plik `requirements.txt` (`pip freeze > requirements.txt`).
 
-2. **Implementacja widoków JSON (4h):**
-   - Użycie `JsonResponse` do zwracania list obiektów i pojedynczych rekordów.
-   - Obsługa błędów (np. 404 w formacie JSON).
+2. **Tworzenie Dockerfile (2h):**
+   - Przygotuj plik `Dockerfile` dla aplikacji Django (bazujący na `python:3.11-slim`).
+   - Zbuduj obraz: `docker build -t django-app .`.
+   - **Commit:** "Add Dockerfile for Django application".
 
-**Kod źródłowy `api/views.py`:**
-```python
-from django.http import JsonResponse
-from blog.models import Post
-
-def api_post_list(request):
-    posts = Post.objects.all()
-    data = {
-        "results": list(posts.values("id", "title", "author__username", "published_at"))
-    }
-    return JsonResponse(data)
-
-def api_post_detail(request, pk):
-    try:
-        post = Post.objects.get(pk=pk)
-        data = {
-            "id": post.id,
-            "title": post.title,
-            "content": post.content,
-            "author": post.author.username
-        }
-        return JsonResponse(data)
-    except Post.DoesNotExist:
-        return JsonResponse({"error": "Post not found"}, status=404)
-```
-
-3. **Routing API (2h):**
-   - Stworzenie dedykowanego pliku `urls.py` dla API (np. `/api/posts/`).
-
-4. **Testowanie (2h):**
-   - Testowanie punktów końcowych za pomocą przeglądarki lub narzędzia `curl` / Postman.
+3. **Orkiestracja z Docker Compose (3h):**
+   - Stwórz plik `docker-compose.yml` zawierający serwis `web` (Twoja aplikacja) oraz `db` (PostgreSQL).
+   - Skonfiguruj zmienne środowiskowe dla bazy danych.
+   - Uruchom cały stos: `docker-compose up`.
+   - **Commit:** "Add docker-compose for app and database orchestration".
 
 ### Lista kontrolna (Checklist):
-- [ ] Czy punkty końcowe zwracają poprawny Content-Type (`application/json`)?
-- [ ] Czy struktura JSON jest zgodna z założeniami?
-- [ ] Czy zapytanie o nieistniejący zasób zwraca błąd 404 w formacie JSON?
-- [ ] Czy pola typu ForeignKey (np. autor) są poprawnie serializowane (np. jako nazwa użytkownika, a nie ID)?
+- [ ] Czy obraz Dockera buduje się bez błędów?
+- [ ] Czy aplikacja poprawnie łączy się z bazą danych PostgreSQL wewnątrz kontenera?
+- [ ] Czy wolumeny dla bazy danych są poprawnie skonfigurowane (trwałość danych)?
 
 ### Wymagania na zaliczenie:
-- Minimum dwa działające endpointy (lista i szczegóły).
-- Poprawna obsługa kodów statusu HTTP.
-- Dokumentacja punktów końcowych w pliku README.
+- Pliki `Dockerfile` i `docker-compose.yml` w repozytorium.
+- Umiejętność uruchomienia projektu jedną komendą `docker-compose up`.
+- Historia zmian na dedykowanej gałęzi.
