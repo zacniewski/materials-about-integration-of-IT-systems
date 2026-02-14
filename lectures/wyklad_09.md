@@ -1,14 +1,14 @@
-# Wykład 9: Automatyzacja integracji – CI/CD z GitHub Actions
+# Wykład 9: Automatyzacja integracji – CI/CD z GitHub Actions w praktyce
 
 ## Czas trwania: 2 godziny
 
 ### Agenda:
 1. Koncepcja Continuous Integration (CI) i Continuous Deployment (CD).
-2. Wprowadzenie do GitHub Actions: Workflows, Jobs, Steps.
-3. Składnia YAML dla GitHub Actions.
-4. Automatyczne budowanie obrazów Docker i wypychanie do rejestru.
-5. Automatyzacja testów i sprawdzanie jakości kodu (Linters).
-6. Wyzwalacze (Triggers): push, pull_request, schedule.
+2. GitHub Actions: Reusable Workflows i Composite Actions.
+3. Zaawansowana składnia YAML: macierze (strategy matrix), zależności między jobami.
+4. Środowiska (Environments) i zatwierdzenia ręczne (Approvals).
+5. Zarządzanie sekretami i zmiennymi w GitHub.
+6. Monitorowanie przebiegu i rozwiązywanie problemów w Action Logs.
 
 ### Treść:
 
@@ -36,31 +36,23 @@ graph LR
     end
 ```
 
-#### 2. Wprowadzenie do GitHub Actions
-GitHub Actions to narzędzie wbudowane w platformę GitHub, służące do automatyzacji workflowów.
+#### 2. Zaawansowane funkcje GitHub Actions
+GitHub Actions to potężne narzędzie, które pozwala na budowanie złożonych potoków.
 
-*   **Workflow:** Cały proces zapisany w pliku YAML w katalogu `.github/workflows/`.
-*   **Job:** Grupa kroków wykonywanych na tym samym "runnerze" (maszynie wirtualnej). Joby mogą działać równolegle.
-*   **Step:** Pojedyncze zadanie, np. uruchomienie komendy shell lub gotowej akcji (Action).
+*   **Strategy Matrix:** Pozwala uruchamiać ten sam job na wielu wersjach systemu operacyjnego lub języka jednocześnie.
+    ```yaml
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.9", "3.10", "3.11"]
+    ```
+*   **Needs (Zależności):** Definiowanie kolejności wykonywania jobów. Job `deploy` może zależeć od powodzenia joba `test`.
+*   **Reusable Workflows:** Możliwość wywoływania jednego workflow z drugiego, co pozwala na reużywalność kodu CI/CD.
 
-#### 3. Składnia YAML dla GitHub Actions
-Przykładowy prosty workflow:
-
-```yaml
-name: Node.js CI
-on: [push]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: npm install
-      - run: npm test
-```
+#### 3. Środowiska i Bezpieczeństwo
+*   **Environments:** Pozwalają na definiowanie specyficznych ustawień dla różnych etapów (np. `staging`, `production`).
+*   **Protection Rules:** Wymaganie ręcznego zatwierdzenia (Approval) przez lidera zespołu przed wdrożeniem na produkcję.
+*   **Secrets:** Klucze API, hasła do baz danych – nigdy nie powinny być w kodzie! GitHub Secrets zapewnia ich bezpieczne wstrzykiwanie do potoku.
 
 #### 4. Automatyczne budowanie i wypychanie obrazów Docker
 GitHub Actions świetnie integruje się z Docker Hub.

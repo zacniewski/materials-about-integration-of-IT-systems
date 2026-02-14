@@ -1,14 +1,15 @@
-# Wykład 2: Zaawansowany Git i praca zespołowa na GitHub
+# Wykład 2: Zaawansowany Git, praca zespołowa i workflow na GitHub
 
 ## Czas trwania: 2 godziny
 
 ### Agenda:
 1. Współpraca zdalna: protokoły (SSH vs HTTPS), remotes.
-2. Gałęzie (branches) – strategie pracy (Git Flow, GitHub Flow).
-3. Rozwiązywanie konfliktów podczas scalania (merge vs rebase).
-4. GitHub jako platforma społecznościowa i narzędzie CI/CD.
-5. Pull Requests i Code Review – kultura jakości kodu.
-6. Zarządzanie uprawnieniami i bezpieczeństwo repozytorium.
+2. Zaawansowane operacje na gałęziach: stashing, cherry-picking.
+3. Strategie pracy zespołowej: Git Flow vs GitHub Flow vs Trunk Based Development.
+4. Rozwiązywanie konfliktów podczas scalania (merge vs rebase).
+5. GitHub jako centrum integracji: Issues, Projects, Milestones.
+6. Pull Requests i Code Review – kultura jakości kodu i integracji.
+7. Branch Protection i GitHub Actions jako bramka jakości.
 
 ### Treść:
 
@@ -24,12 +25,16 @@ Git pozwala na synchronizację lokalnego repozytorium z serwerami zewnętrznymi 
     *   `git fetch` – pobranie informacji o zmianach ze zdalnego repozytorium (bez ich scalania).
     *   `git pull` – pobranie i automatyczne scalenie zmian (fetch + merge).
 
-#### 2. Gałęzie (branches) – strategie pracy
+#### 2. Gałęzie (branches) i zaawansowane operacje
 Gałęzie pozwalają na równoległe rozwijanie różnych funkcji bez wpływania na stabilną wersję kodu.
 
-**Popularne strategie:**
-*   **GitHub Flow:** Prosta strategia oparta na krótkotrwałych gałęziach `feature` scalanych bezpośrednio do `main`.
-*   **Git Flow:** Bardziej rozbudowana struktura z podziałem na `main`, `develop`, `feature`, `release` i `hotfix`.
+*   `git stash` – tymczasowe "odłożenie" zmian na bok, aby móc zmienić gałąź bez robienia commitu.
+*   `git cherry-pick <commit_hash>` – wybranie konkretnego commitu z innej gałęzi i zaaplikowanie go do obecnej.
+
+**Popularne strategie pracy zespołowej:**
+*   **GitHub Flow:** Prosta strategia oparta na krótkotrwałych gałęziach `feature` scalanych bezpośrednio do `main`. Idealna dla systemów z częstym wdrażaniem (Continuous Deployment).
+*   **Git Flow:** Bardziej rozbudowana struktura z podziałem na `main`, `develop`, `feature`, `release` i `hotfix`. Dobra dla projektów z cyklicznym wydawaniem wersji.
+*   **Trunk Based Development:** Minimalizacja liczby gałęzi, częste commity do `main`.
 
 ```mermaid
 gitGraph

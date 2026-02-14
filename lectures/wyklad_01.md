@@ -1,4 +1,4 @@
-# Wykład 1: Wprowadzenie do integracji systemów i systemu kontroli wersji Git
+# Wykład 1: Wprowadzenie do integracji i system kontroli wersji Git (z elementami Markdown)
 
 ## Czas trwania: 2 godziny
 
@@ -6,9 +6,10 @@
 1. Definicja i cele integracji systemów informatycznych.
 2. Wyzwania w nowoczesnej integracji (rozproszenie, heterogeniczność).
 3. Rola systemów kontroli wersji (VCS) w procesie integracji.
-4. Architektura i filozofia Git.
-5. Podstawowe operacje lokalne: init, add, commit, status, log.
-6. Praca z historią i cofanie zmian.
+4. Markdown – standard dokumentacji technicznej.
+5. Architektura i filozofia Git.
+6. Podstawowe operacje lokalne: init, add, commit, status, log.
+7. Praca z historią i cofanie zmian.
 
 ### Treść:
 
@@ -38,7 +39,25 @@ Systemy kontroli wersji (takie jak Git) są fundamentem CI/CD (Continuous Integr
 * Możliwość powrotu do poprzednich wersji w razie awarii.
 * Automatyczne uruchamianie testów przy każdej próbie integracji nowego kodu.
 
-#### 4. Architektura i filozofia Git
+#### 4. Markdown – standard dokumentacji technicznej
+Markdown to lekki język znaczników, służący do formatowania tekstu. Jest standardem w dokumentacji projektów IT (np. pliki `README.md` na GitHub).
+
+**Podstawowa składnia:**
+*   `# Nagłówek 1`, `## Nagłówek 2` – nagłówki.
+*   `**Pogrubienie**`, `*Kursywa*` – formatowanie tekstu.
+*   `[Link](https://url.com)` – odnośniki.
+*   `![Opis](obrazek.png)` – obrazy.
+*   `- Element listy` – listy wypunktowane.
+*   `1. Element listy` – listy numerowane.
+*   `` `kod inline` `` – kod wewnątrz linii.
+*   ` ```bash ` – bloki kodu.
+
+**Dlaczego Markdown?**
+- Czytelny dla człowieka i maszyny.
+- Łatwa konwersja do HTML/PDF.
+- Wspierany przez niemal wszystkie platformy (GitHub, GitLab, Jira, StackOverflow).
+
+#### 5. Architektura i filozofia Git
 Git jest **rozproszonym** systemem kontroli wersji. Oznacza to, że każdy programista posiada pełną kopię repozytorium na swoim dysku.
 
 ```mermaid
@@ -55,7 +74,7 @@ graph LR
 *   **Staging Area (Index):** Poczekalnia dla zmian, które mają trafić do następnego commitu.
 *   **Local Repository:** Lokalna baza danych z historią zmian (.git).
 
-#### 5. Podstawowe operacje lokalne
+#### 6. Podstawowe operacje lokalne
 Praca z Gitem zaczyna się od inicjalizacji lub sklonowania projektu.
 
 *   `git init` – tworzy nowe repozytorium w bieżącym folderze.
@@ -63,6 +82,8 @@ Praca z Gitem zaczyna się od inicjalizacji lub sklonowania projektu.
 *   `git add <plik>` – dodaje zmiany do Staging Area.
 *   `git commit -m "opis"` – zapisuje zmiany w lokalnym repozytorium.
 *   `git log` – wyświetla historię zmian.
+*   `git diff` – pokazuje różnice między plikami.
+*   `git blame <plik>` – pokazuje, kto zmienił każdą linię w pliku (kluczowe przy integracji).
 
 **Przykład sekwencji komend:**
 ```bash
@@ -73,7 +94,7 @@ git commit -m "Initial commit"
 git status
 ```
 
-#### 6. Praca z historią i cofanie zmian
+#### 7. Praca z historią i cofanie zmian
 Git pozwala na bezpieczne eksperymentowanie.
 
 *   `git checkout -- <plik>` – wycofuje zmiany w pliku (do stanu z ostatniego commitu).
