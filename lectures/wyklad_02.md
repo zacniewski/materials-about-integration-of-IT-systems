@@ -9,7 +9,8 @@
 4. Rozwiązywanie konfliktów podczas scalania (merge vs rebase).
 5. GitHub jako centrum integracji: Issues, Projects, Milestones.
 6. Pull Requests i Code Review – kultura jakości kodu i integracji.
-7. Branch Protection i GitHub Actions jako bramka jakości.
+7. Branch Protection i GitHub Actions – wprowadzenie do automatyzacji (CI/CD).
+8. Praktyczne wprowadzenie do GitHub Actions: składnia i przykłady.
 
 ### Treść:
 
@@ -86,3 +87,55 @@ Bezpieczeństwo repozytorium jest kluczowe w integracji:
 *   **Branch Protection Rules:** Blokowanie bezpośredniego pusha do `main`, wymóg statusu "pass" z testów CI przed mergem.
 *   **Rola użytkowników:** Read, Triage, Write, Maintain, Admin.
 *   **Secrets:** Bezpieczne przechowywanie haseł i kluczy API wykorzystywanych przez GitHub Actions.
+
+#### 7. GitHub Actions – Automatyzacja CI/CD
+GitHub Actions to platforma do automatyzacji cyklu życia oprogramowania (Workflow). Pozwala na budowanie, testowanie i wdrażanie kodu bezpośrednio z poziomu GitHuba.
+
+**Podstawowe pojęcia:**
+*   **Workflow:** Zautomatyzowany proces (zapisany w pliku `.yml`), który składa się z jednego lub więcej zadań.
+*   **Events:** Zdarzenia wyzwalające workflow (np. `push`, `pull_request`, `schedule`).
+*   **Jobs:** Grupa kroków wykonywanych na tym samym runnerze. Zadania mogą działać równolegle lub zależnie od siebie.
+*   **Steps:** Pojedyncze zadania wewnątrz Job (np. wykonanie komendy powłoki lub użycie zewnętrznej akcji).
+*   **Actions:** Samodzielne, reużywalne jednostki kodu (np. `actions/checkout@v4`).
+*   **Runner:** Serwer, na którym wykonywane są zadania (hostowany przez GitHub lub własny).
+
+#### 8. Praktyczny przykład: Testowanie projektu Django
+Pliki workflow muszą znajdować się w katalogu `.github/workflows/` w głównym folderze repozytorium.
+
+**Przykład pliku `ci.yml`:**
+```yaml
+name: Django CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Tests
+      run: |
+        python manage.py test
+```
+
+**Dlaczego warto używać GitHub Actions w integracji?**
+1. **Szybki feedback:** Programista natychmiast dowiaduje się, czy jego zmiany psują projekt.
+2. **Standaryzacja:** Każdy kod przechodzi przez te same testy na czystym środowisku.
+3. **Automatyzacja powtarzalnych czynności:** Generowanie dokumentacji, budowanie obrazów Docker, wdrażanie na serwer testowy.

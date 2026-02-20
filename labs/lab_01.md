@@ -63,12 +63,36 @@ graph LR
    - Operacje `push`, `pull`.
    - Wykorzystanie GitHub Issues do zaplanowania kolejnych etapów projektu.
 
+5. **Automatyzacja z GitHub Actions (2h):**
+   - Utworzenie w głównym folderze projektu struktury katalogów: `.github/workflows/`.
+   - Stworzenie pliku `django_check.yml` o następującej treści (weryfikacja składni):
+     ```yaml
+     name: Django Syntax Check
+     on: [push]
+     jobs:
+       lint:
+         runs-on: ubuntu-latest
+         steps:
+           - uses: actions/checkout@v4
+           - name: Set up Python
+             uses: actions/setup-python@v5
+             with:
+               python-version: '3.10'
+           - name: Install flake8
+             run: pip install flake8
+           - name: Run linting
+             run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+     ```
+   - Wysłanie zmian do repozytorium (`push`) i zaobserwowanie zakładki **Actions** na GitHubie.
+   - **Zadanie:** Celowo wprowadź błąd składniowy (np. usuń dwukropek w `urls.py`), wypchnij zmianę i sprawdź, czy GitHub Actions zgłosi błąd (czerwony X).
+
 ### Lista kontrolna (Checklist):
 - [ ] Czy zainstalowano Pythona (wersja 3.10+) i Gita?
 - [ ] Czy skonfigurowano klucze SSH i połączenie z GitHub?
 - [ ] Czy projekt Django uruchamia się lokalnie (`python manage.py runserver`)?
 - [ ] Czy plik `.gitignore` zawiera `venv/`, `__pycache__/` oraz `db.sqlite3`?
 - [ ] Czy repozytorium na GitHub jest publiczne i zawiera README.md?
+- [ ] Czy skonfigurowano pierwszy workflow w GitHub Actions i czy zakończył się sukcesem (zielony znaczek)?
 
 ### Wymagania na zaliczenie:
 - Utworzenie publicznego repozytorium na GitHub z zainicjalizowanym projektem Django.
