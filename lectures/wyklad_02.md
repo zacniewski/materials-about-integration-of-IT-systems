@@ -3,14 +3,13 @@
 ## Czas trwania: 2 godziny
 
 ### Agenda:
-1. Współpraca zdalna: protokoły (SSH vs HTTPS), remotes.
-2. Zaawansowane operacje na gałęziach: stashing, cherry-picking.
-3. Strategie pracy zespołowej: Git Flow vs GitHub Flow vs Trunk Based Development.
-4. Rozwiązywanie konfliktów podczas scalania (merge vs rebase).
-5. GitHub jako centrum integracji: Issues, Projects, Milestones.
-6. Pull Requests i Code Review – kultura jakości kodu i integracji.
-7. Branch Protection i GitHub Actions – wprowadzenie do automatyzacji (CI/CD).
-8. Praktyczne wprowadzenie do GitHub Actions: składnia i przykłady.
+1. Współpraca zdalna: protokoły (SSH vs HTTPS), zarządzanie `remotes`.
+2. Cykl życia Pull Requesta i kultura Code Review.
+3. Strategie pracy zespołowej (Workflow): Git Flow, GitHub Flow, Trunk Based Development.
+4. Zaawansowane operacje: stashing, cherry-picking, rebase.
+5. Rozwiązywanie konfliktów: techniki i narzędzia.
+6. Wprowadzenie do CI/CD (Continuous Integration, Delivery, Deployment).
+7. GitHub Actions: automatyzacja testów i weryfikacji.
 
 ### Treść:
 
@@ -26,35 +25,76 @@ Git pozwala na synchronizację lokalnego repozytorium z serwerami zewnętrznymi 
     *   `git fetch` – pobranie informacji o zmianach ze zdalnego repozytorium (bez ich scalania).
     *   `git pull` – pobranie i automatyczne scalenie zmian (fetch + merge).
 
-#### 2. Gałęzie (branches) i zaawansowane operacje
-Gałęzie pozwalają na równoległe rozwijanie różnych funkcji bez wpływania na stabilną wersję kodu.
+#### 2. Pull Requests i Code Review
+Pull Request (PR) to nie tylko prośba o scalenie kodu, to proces zapewnienia jakości i integracji wiedzy.
 
-*   `git stash` – tymczasowe "odłożenie" zmian na bok, aby móc zmienić gałąź bez robienia commitu.
-*   `git cherry-pick <commit_hash>` – wybranie konkretnego commitu z innej gałęzi i zaaplikowanie go do obecnej.
+**Cykl życia PR:**
+1.  **Creation:** Programista wypycha gałąź `feature` i otwiera PR.
+2.  **Verification:** Automatyczne testy (CI) sprawdzają, czy kod się buduje i przechodzi testy.
+3.  **Review:** Inni członkowie zespołu komentują kod, sugerują poprawki.
+4.  **Iteration:** Autor nanosi poprawki na tę samą gałąź (PR aktualizuje się automatycznie).
+5.  **Approval:** Po uzyskaniu wymaganej liczby zatwierdzeń, kod jest gotowy.
+6.  **Merge:** Scalenie zmian do głównej gałęzi (np. `main`).
 
-**Popularne strategie pracy zespołowej:**
-*   **GitHub Flow:** Prosta strategia oparta na krótkotrwałych gałęziach `feature` scalanych bezpośrednio do `main`. Idealna dla systemów z częstym wdrażaniem (Continuous Deployment).
-*   **Git Flow:** Bardziej rozbudowana struktura z podziałem na `main`, `develop`, `feature`, `release` i `hotfix`. Dobra dla projektów z cyklicznym wydawaniem wersji.
-*   **Trunk Based Development:** Minimalizacja liczby gałęzi, częste commity do `main`.
+```mermaid
+sequenceDiagram
+    participant D as Developer
+    participant GH as GitHub (PR)
+    participant CI as CI (Actions)
+    participant R as Reviewer
+
+    D->>GH: Push branch & Open PR
+    GH->>CI: Trigger Workflow
+    CI-->>GH: Status: Success/Failure
+    GH->>R: Notify for Review
+    R->>GH: Comments & Suggestions
+    D->>GH: Push fixes
+    R->>GH: Approve
+    GH->>GH: Merge to main
+```
+
+**Dobre praktyki Code Review:**
+*   Bądź konstruktywny (skup się na kodzie, nie na osobie).
+*   Sprawdzaj nie tylko błędy, ale i czytelność oraz architekturę.
+*   Zadawaj pytania ("Dlaczego wybrałeś to rozwiązanie?").
+*   Wykorzystuj narzędzia typu Linter/Formatter do automatyzacji stylu.
+
+#### 3. Strategie pracy zespołowej (Workflow)
+Wybór strategii zależy od rozmiaru zespołu i częstotliwości wydań.
+
+*   **GitHub Flow:**
+    *   Wszystko w `main` musi być zawsze gotowe do wdrożenia.
+    *   Każda nowa funkcja/poprawka na osobnej gałęzi o jasnej nazwie.
+    *   Merge do `main` następuje natychmiast po zatwierdzeniu PR.
+*   **Git Flow:** (Ilustracja poniżej)
+    *   `main` - kod produkcyjny.
+    *   `develop` - główna gałąź integracyjna dla programistów.
+    *   `feature/` - nowe funkcjonalności (odchodzą od `develop`).
+    *   `release/` - przygotowanie do wydania nowej wersji.
+    *   `hotfix/` - pilne poprawki błędów produkcyjnych (bezpośrednio do `main` i `develop`).
 
 ```mermaid
 gitGraph
-    commit
+    commit id: "v1.0"
     branch develop
     checkout develop
-    commit
-    branch feature/login
-    checkout feature/login
-    commit
-    commit
+    commit id: "Initial develop"
+    branch feature/api
+    checkout feature/api
+    commit id: "Add endpoints"
+    commit id: "Add auth"
     checkout develop
-    merge feature/login
-    commit
+    merge feature/api
+    branch release/v1.1
+    checkout release/v1.1
+    commit id: "Bugfix"
     checkout main
-    merge develop tag: "v1.0"
+    merge release/v1.1 tag: "v1.1"
+    checkout develop
+    merge release/v1.1
 ```
 
-#### 3. Rozwiązywanie konfliktów
+#### 4. Zaawansowane operacje i rozwiązywanie konfliktów
 Konflikt występuje, gdy dwie osoby zmieniły tę samą linię w tym samym pliku.
 
 *   **Merge (Scalanie):** Łączy historie obu gałęzi, tworząc nowy "merge commit". Zachowuje pełny kontekst historyczny.
@@ -66,21 +106,6 @@ Konflikt występuje, gdy dwie osoby zmieniły tę samą linię w tym samym pliku
 3. Wybierz docelową wersję kodu i usuń znaczniki Gita.
 4. `git add <plik>` i `git commit`.
 
-#### 4. GitHub jako platforma integracyjna
-GitHub oferuje ekosystem narzędzi wykraczający poza samo przechowywanie kodu:
-*   **Issues:** Śledzenie błędów i zadań.
-*   **Actions:** Automatyzacja (CI/CD) – testowanie i wdrażanie kodu.
-*   **Wiki/Pages:** Dokumentacja projektu.
-*   **Security Tab:** Skanowanie kodu pod kątem podatności i wycieków sekretów.
-
-#### 5. Pull Requests i Code Review
-Pull Request (PR) to prośba o dołączenie zmian z jednej gałęzi do drugiej. Jest to kluczowy moment kontroli jakości.
-
-**Zalety Code Review:**
-*   Wykrywanie błędów przed wdrożeniem.
-*   Dzielenie się wiedzą w zespole.
-*   Utrzymanie spójnego stylu kodu (Linting).
-*   Zapewnienie, że kod realizuje postawione wymagania.
 
 #### 6. Zarządzanie uprawnieniami
 Bezpieczeństwo repozytorium jest kluczowe w integracji:
@@ -88,7 +113,32 @@ Bezpieczeństwo repozytorium jest kluczowe w integracji:
 *   **Rola użytkowników:** Read, Triage, Write, Maintain, Admin.
 *   **Secrets:** Bezpieczne przechowywanie haseł i kluczy API wykorzystywanych przez GitHub Actions.
 
-#### 7. GitHub Actions – Automatyzacja CI/CD
+#### 6. Wprowadzenie do CI/CD
+**Continuous Integration (CI)** to praktyka częstego scalania kodu wszystkich programistów do wspólnego repozytorium (często wiele razy dziennie).
+
+**Kluczowe elementy CI/CD:**
+1.  **Continuous Integration (CI):** Automatyczne budowanie i testowanie przy każdym pushu. Celem jest szybkie wykrycie błędów.
+2.  **Continuous Delivery (CD):** Kod jest zawsze gotowy do wdrożenia na produkcję, ale samo wdrożenie wymaga decyzji człowieka (manualne kliknięcie).
+3.  **Continuous Deployment (CD):** Każda zmiana, która przejdzie testy, jest automatycznie wdrażana na produkcję.
+
+```mermaid
+graph LR
+    Build --> Test
+    Test --> Release
+    Release --> Deploy
+    subgraph CI
+    Build
+    Test
+    end
+    subgraph CD_Delivery
+    Release
+    end
+    subgraph CD_Deployment
+    Deploy
+    end
+```
+
+#### 7. GitHub Actions – Automatyzacja
 GitHub Actions to platforma do automatyzacji cyklu życia oprogramowania (Workflow). Pozwala na budowanie, testowanie i wdrażanie kodu bezpośrednio z poziomu GitHuba.
 
 **Podstawowe pojęcia:**
@@ -98,6 +148,44 @@ GitHub Actions to platforma do automatyzacji cyklu życia oprogramowania (Workfl
 *   **Steps:** Pojedyncze zadania wewnątrz Job (np. wykonanie komendy powłoki lub użycie zewnętrznej akcji).
 *   **Actions:** Samodzielne, reużywalne jednostki kodu (np. `actions/checkout@v4`).
 *   **Runner:** Serwer, na którym wykonywane są zadania (hostowany przez GitHub lub własny).
+
+**Dobre praktyki workflow:**
+1.  Uruchamiaj CI zarówno na `push`, jak i na `pull_request` (zapewnia testy dla forków i przed mergem).
+2.  Buforuj zależności (cache) dla szybszych buildów (`actions/cache`).
+3.  Oddzielaj lint/test/build/deploy w osobnych `jobs` lub `steps` z jasnymi nazwami.
+4.  Używaj `concurrency` żeby uniknąć wyścigów podczas wielokrotnych pushy do tego samego PR.
+5.  Przechowuj sekrety w `Settings -> Secrets and variables` i wstrzykuj je przez `secrets.MY_SECRET`.
+
+**Przykład linta + testów z cache dla Pythona:**
+```yaml
+name: CI
+on: [push, pull_request]
+
+jobs:
+  lint_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8
+      - name: Lint
+        run: flake8 .
+      - name: Test
+        run: python manage.py test
+```
 
 #### 8. Praktyczny przykład: Testowanie projektu Django
 Pliki workflow muszą znajdować się w katalogu `.github/workflows/` w głównym folderze repozytorium.

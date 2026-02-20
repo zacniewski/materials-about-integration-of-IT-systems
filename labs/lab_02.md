@@ -7,6 +7,27 @@ Stworzenie lokalnej wersji aplikacji 'Blog' w Django oraz opanowanie pracy na ga
 
 ### Zadania i ćwiczenia:
 
+#### 0. Wiedza teoretyczna w pigułce
+- **MVC w Django:** Django implementuje wzorzec MVT (Model-Template-View), będący wariantem MVC: `Model` (logika danych), `Template` (warstwa prezentacji), `View` (logika kontrolera).
+- **Przepływ żądania:** Przeglądarka -> URLconf -> Widok -> (Model/ORM) -> Szablon -> Odpowiedź HTTP.
+- **ORM:** Warstwa mapowania obiektowo-relacyjnego pozwala operować na bazie poprzez klasy Pythona.
+
+```mermaid
+sequenceDiagram
+    participant U as Użytkownik (Przeglądarka)
+    participant S as Serwer Django
+    participant V as Widok
+    participant M as Model/ORM
+    participant T as Szablon
+
+    U->>S: HTTP GET /
+    S->>V: Dopasowanie przez urls.py
+    V->>M: Zapytanie o Posty
+    M-->>V: Lista Postów
+    V->>T: Renderuj listę
+    T-->>U: HTML
+```
+
 1. **Praca na gałęziach (Git Workflow) (1h):**
    - Przed rozpoczęciem pracy stwórz nową gałąź: `git checkout -b feature/blog-app`.
    - Wszystkie zmiany w tym laboratorium powinny trafiać na tę gałąź.
@@ -17,6 +38,18 @@ Stworzenie lokalnej wersji aplikacji 'Blog' w Django oraz opanowanie pracy na ga
    - **Commit:** "Add blog app to projects and settings".
 
 3. **Definicja modeli (2h):**
+
+```mermaid
+erDiagram
+    USER ||--o{ POST : author
+    POST {
+        int id PK
+        string title
+        text content
+        datetime created_at
+        datetime published_at
+    }
+```
    - Stworzenie modelu `Post` z polami: `title`, `content`, `author` (ForeignKey do User), `created_at`, `published_at`.
    - Implementacja metody `__str__` dla modelu.
    - **Commit:** "Define Post model".
@@ -55,6 +88,7 @@ class Post(models.Model):
    - Wypchnij gałąź na GitHub: `git push origin feature/blog-app`.
    - Stwórz **Pull Request** na GitHubie.
    - Zmerguj gałąź `feature/blog-app` do `main` (lokalnie lub przez GitHub).
+   - (Opcjonalnie) Dodaj proste testy jednostkowe widoków lub modeli i włącz je do CI (patrz Wykład 2, sekcja Actions).
 
 ### Lista kontrolna (Checklist):
 - [ ] Czy pracowałeś na osobnej gałęzi `feature/blog-app`?

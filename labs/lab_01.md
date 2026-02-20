@@ -6,11 +6,21 @@
 Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie lokalnego środowiska programistycznego dla frameworka Django. Szczególny nacisk położono na poprawne dokumentowanie pracy przy użyciu Markdown oraz konfigurację bezpiecznego dostępu przez SSH. Przed rozpoczęciem zapoznaj się z listą wymaganych kont w pliku [before_you_start.md](before_you_start.md).
 
 ### Zadania i ćwiczenia:
+
+#### 0. Wiedza teoretyczna w pigułce
+*   **Git** to rozproszony system kontroli wersji. "Rozproszony" oznacza, że nie potrzebujesz stałego połączenia z serwerem, aby robić commity, przeglądać historię czy tworzyć gałęzie.
+*   **SSH (Secure Shell)** to protokół używany do bezpiecznej komunikacji. Wykorzystuje asymetryczną kryptografię (klucz publiczny i prywatny). Klucz publiczny wgrywasz na GitHub, a prywatny trzymasz bezpiecznie na swoim komputerze.
+*   **Wirtualne środowisko (venv)** izoluje zależności Twojego projektu. Dzięki temu różne projekty mogą używać różnych wersji tych samych bibliotek (np. Django 4.2 i Django 5.0) na tym samym komputerze bez konfliktów.
+
 1. **Konfiguracja środowiska i Markdown (2h):**
    - Instalacja Git oraz Python.
    - Konfiguracja nazwy użytkownika i emaila w Git.
-   - Generowanie i dodawanie kluczy SSH do konta GitHub.
-   - **Zadanie Markdown:** Stwórz plik `README.md` w swoim folderze roboczym. Użyj nagłówków, list, pogrubienia oraz dodaj link do oficjalnej dokumentacji Django.
+   - **Generowanie kluczy SSH:**
+     1. Otwórz terminal i wpisz: `ssh-keygen -t ed25519 -C "twój_email@example.com"`.
+     2. Zaakceptuj domyślną lokalizację pliku.
+     3. Skopiuj zawartość pliku publicznego: `cat ~/.ssh/id_ed25519.pub`.
+     4. Dodaj klucz w ustawieniach GitHub (Settings -> SSH and GPG keys).
+   - **Zadanie Markdown:** Stwórz plik `README.md` w swoim folderze roboczym. Użyj nagłówków, list, pogrubienia, kodu inline oraz dodaj link do oficjalnej dokumentacji Django.
 
 | Narzędzie | Komenda | Opis |
 | :--- | :--- | :--- |
@@ -22,7 +32,23 @@ Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie loka
 2. **Inicjalizacja projektu Django i Git (2h):**
    - Utworzenie nowego projektu: `django-admin startproject core .`.
    - Inicjalizacja repozytorium: `git init`.
-   - Stworzenie pliku `.gitignore` dedykowanego dla Python/Django (wykorzystaj `gitignore.io`).
+   - **Stworzenie pliku `.gitignore`:** Wykorzystaj `gitignore.io` lub stwórz plik ręcznie. Musi on zawierać co najmniej:
+     ```text
+     # Środowisko wirtualne
+     venv/
+     ENV/
+     
+     # Cache Pythona
+     **/__pycache__/
+     *.py[cod]
+     
+     # Baza danych (lokalna)
+     db.sqlite3
+     
+     # Pliki IDE
+     .vscode/
+     .idea/
+     ```
    - Pierwszy commit: "Initial commit: Django project structure".
 
 **Struktura plików projektu Django:**
@@ -58,12 +84,18 @@ graph LR
 ```
 
 4. **Współpraca z GitHub (3h):**
-   - Tworzenie zdalnego repozytorium na GitHub.
-   - Połączenie lokalnego repozytorium ze zdalnym (`git remote add origin ...`).
+   - Tworzenie zdalnego repozytorium na GitHub (nie dodawaj README ani .gitignore na GitHubie - mamy je już lokalnie).
+   - Połączenie lokalnego repozytorium ze zdalnym: `git remote add origin git@github.com:użytkownik/nazwa-repo.git`.
    - Operacje `push`, `pull`.
    - Wykorzystanie GitHub Issues do zaplanowania kolejnych etapów projektu.
 
-5. **Automatyzacja z GitHub Actions (2h):**
+5. **Symulacja konfliktu (NOWE - 1h):**
+   - Na GitHubie wyedytuj plik `README.md` bezpośrednio w przeglądarce i zatwierdź zmiany.
+   - W lokalnym repozytorium (na tym samym pliku, w tej samej linii) wprowadź inną zmianę i spróbuj zrobić `git commit` oraz `git push`.
+   - Git zablokuje push. Wykonaj `git pull`. Powstanie konflikt.
+   - Rozwiąż konflikt ręcznie, wybierając pożądaną wersję tekstu, wykonaj `git add README.md` i `git commit`.
+
+6. **Automatyzacja z GitHub Actions (2h):**
    - Utworzenie w głównym folderze projektu struktury katalogów: `.github/workflows/`.
    - Stworzenie pliku `django_check.yml` o następującej treści (weryfikacja składni):
      ```yaml
