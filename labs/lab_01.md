@@ -89,7 +89,7 @@ graph LR
    - Operacje `push`, `pull`.
    - Wykorzystanie GitHub Issues do zaplanowania kolejnych etapów projektu.
 
-5. **Symulacja konfliktu (NOWE - 1h):**
+5. **Symulacja konfliktu (1h):**
    - Na GitHubie wyedytuj plik `README.md` bezpośrednio w przeglądarce i zatwierdź zmiany.
    - W lokalnym repozytorium (na tym samym pliku, w tej samej linii) wprowadź inną zmianę i spróbuj zrobić `git commit` oraz `git push`.
    - Git zablokuje push. Wykonaj `git pull`. Powstanie konflikt.
