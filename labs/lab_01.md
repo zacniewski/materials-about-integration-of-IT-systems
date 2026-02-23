@@ -5,7 +5,13 @@
 ### Cel:
 Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie lokalnego środowiska programistycznego dla wybranego frameworka (np. Django, React, itp.). Szczególny nacisk położono na poprawne dokumentowanie pracy przy użyciu Markdown oraz konfigurację bezpiecznego dostępu przez SSH. Przed rozpoczęciem zapoznaj się z listą wymaganych kont w pliku [before_you_start.md](before_you_start.md).
 
-> **Ważne:** Przykłady zadań bazują na Django, ponieważ jest to technologia wybrana przez prowadzącego do prezentacji. Studenci mogą jednak realizować laboratoria w dowolnej, preferowanej przez siebie technologii.
+> **Ważne:** Przykłady zadań bazują na Django, ponieważ jest to technologia wybrana przez prowadzącego do prezentacji. Studenci mogą jednak realizować laboratoria w dowolnej, preferowanej przez siebie technologii.  
+> Wszędzie zamiast Django należy korzystać z technologii, którą się wybrało. W przypadku wyboru innego frameworka, należy odpowiednio skonfigurować plik `.gitignore` oraz treść pliku workflow w GitHub Actions, tak aby były one dopasowane do wybranej technologii.
+> 
+> **Wymagania ogólne:** 
+> * Konieczna jest realizacja (użycie) wszystkich punktów 1-6 opisanych w tym laboratorium.
+> * Należy stworzyć co najmniej dwie dodatkowe gałęzie (branches) oprócz głównej (`main`) i ich nie usuwać z repozytorium na GitHubie.  
+> * Do każdego laboratorium należy sporządzić sprawozdanie w formacie PDF (np. w produktach JetBrains mamy opcję 'Tools->Markdown->Export to PDF').  
 
 ### Zadania i ćwiczenia:
 
@@ -69,9 +75,10 @@ Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie loka
 
 3. **Praca z gałęziami i podstawowa logika (3h):**
    - Tworzenie gałęzi `feature/initial-setup`.
-   - Stworzenie pierwszej aplikacji: `python manage.py startapp base`.
-   - Rejestracja aplikacji w `settings.py`.
+   - Stworzenie pierwszej aplikacji lub modułu (np. `python manage.py startapp base` dla Django).
+   - Rejestracja aplikacji w ustawieniach projektu.
    - Scalanie zmian do gałęzi `main`.
+   - **Uwaga:** Musisz stworzyć i zachować co najmniej dwie gałęzie typu `feature/` (lub inne pomocnicze) w swoim repozytorium. Nie usuwaj ich po scaleniu.
 
 **Diagram przepływu pracy w Git (Feature Branch Workflow):**
 ```mermaid
@@ -121,14 +128,20 @@ graph LR
    - **Zadanie:** Celowo wprowadź błąd składniowy (np. usuń dwukropek w `urls.py`), wypchnij zmianę i sprawdź, czy GitHub Actions zgłosi błąd (czerwony X).
 
 ### Lista kontrolna (Checklist):
-- [ ] Czy zainstalowano Pythona (wersja 3.10+) i Gita?
-- [ ] Czy skonfigurowano klucze SSH i połączenie z GitHub?
-- [ ] Czy projekt Django uruchamia się lokalnie (`python manage.py runserver`)?
-- [ ] Czy plik `.gitignore` zawiera `venv/`, `__pycache__/` oraz `db.sqlite3`?
-- [ ] Czy repozytorium na GitHub jest publiczne i zawiera README.md?
-- [ ] Czy skonfigurowano pierwszy workflow w GitHub Actions i czy zakończył się sukcesem (zielony znaczek)?
+- [ ] Czy zrealizowano wszystkie punkty od 1 do 6?
+- [ ] Czy zainstalowano odpowiednie narzędzia dla wybranej technologii (np. Python, Node.js, Git)?
+- [ ] Czy skonfigurowano klucze SSH i połączenie z GitHub (test: `ssh -T git@github.com`)?
+- [ ] Czy projekt uruchamia się lokalnie i wyświetla stronę startową?
+- [ ] Czy plik `.gitignore` jest poprawnie skonfigurowany dla Twojej technologii (np. ignoruje środowiska wirtualne, cache, pliki lokalnych baz danych i pliki IDE)?
+- [ ] Czy w repozytorium znajdują się co najmniej dwie gałęzie oprócz `main` (np. `feature/setup`, `feature/docs`)?
+- [ ] Czy gałęzie pomocnicze nie zostały usunięte po scaleniu?
+- [ ] Czy repozytorium na GitHub jest publiczne i zawiera sformatowany plik `README.md`?
+- [ ] Czy skonfigurowano GitHub Actions (workflow dopasowany do technologii) i czy testy przechodzą (zielony znacznik)?
+- [ ] Czy w historii commitów widać co najmniej kilka wpisów o jasnych i zrozumiałych komunikatach?
 
 ### Wymagania na zaliczenie:
-- Utworzenie publicznego repozytorium na GitHub z zainicjalizowanym projektem Django.
-- Wykazanie się poprawną historią commitów.
-- Prawidłowo skonfigurowany plik `.gitignore`.
+- Realizacja wszystkich punktów (1-6) instrukcji.
+- Utworzenie publicznego repozytorium na GitHub z zainicjalizowanym projektem w wybranej technologii.
+- Obecność co najmniej dwóch dodatkowych, nieusuniętych gałęzi w repozytorium.
+- Wykazanie się poprawną i czytelną historią commitów.
+- Prawidłowo skonfigurowany plik `.gitignore` i GitHub Actions.
