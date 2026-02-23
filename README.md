@@ -37,4 +37,5 @@ Wymiar: 20 godzin wykładów, 30 godzin laboratoriów, 30 godzin projektu.
 - Biegłość w systemie kontroli wersji Git/GitHub.
 - Integracja usług lokalnych i chmurowych.
 
-> **Uwaga techniczna:** Przykłady prezentowane przez prowadzącego będą realizowane w technologii **Django**. Studenci mają jednak pełną dowolność w wyborze technologii (języka programowania, frameworka) do realizacji własnych zadań i projektu końcowego.
+> **Uwaga techniczna:** Przykłady prezentowane przez prowadzącego będą realizowane w technologii `Django`.  
+> Studenci mają jednak pełną dowolność w wyborze technologii (języka programowania, frameworka) do realizacji własnych zadań i projektu końcowego.
