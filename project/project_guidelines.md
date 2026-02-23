@@ -5,7 +5,8 @@
 ### Cel projektu:
 Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystaniem nowoczesnych praktyk inżynierii oprogramowania, ze szczególnym uwzględnieniem pracy z Gitem, GitHubem oraz automatyzacją CI/CD.
 
-> **Ważne:** Przykłady projektów poniżej bazują na Django, ponieważ jest to technologia wybrana przez prowadzącego do prezentacji. Studenci mogą jednak realizować projekt w dowolnej, preferowanej przez siebie technologii.
+> **Ważne:** Przykłady projektów poniżej bazują na Django, ponieważ jest to technologia wybrana przez prowadzącego do prezentacji. Studenci mogą jednak realizować projekt w dowolnej, preferowanej przez siebie technologii.  
+> **Liczba osób w projekcie**: Projekty mogą być realizowane w składach jedno- lub dwuosobowych.  
 
 ### Wymagania techniczne i procesowe:
 
