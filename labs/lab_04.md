@@ -23,9 +23,18 @@ Przygotowanie aplikacji do pracy w środowisku izolowanym przy użyciu Dockera. 
    - **Commit:** "Add docker-compose for app and database orchestration".
 
 ### Lista kontrolna (Checklist):
-- [ ] Czy obraz Dockera buduje się bez błędów?
-- [ ] Czy aplikacja poprawnie łączy się z bazą danych PostgreSQL wewnątrz kontenera?
-- [ ] Czy wolumeny dla bazy danych są poprawnie skonfigurowane (trwałość danych)?
+- [ ] Czy stworzono i wykorzystano nową gałąź `feature/dockerization`?
+- [ ] Czy plik `requirements.txt` zawiera wszystkie niezbędne biblioteki?
+- [ ] Czy `Dockerfile` bazuje na oficjalnym obrazie Pythona (`python:3.11-slim` lub podobnym)?
+- [ ] Czy `Dockerfile` poprawnie kopiuje pliki i instaluje zależności?
+- [ ] Czy obraz Dockera buduje się bez błędów (`docker build`)?
+- [ ] Czy plik `docker-compose.yml` zawiera co najmniej dwa serwisy: `web` (aplikacja) i `db` (PostgreSQL)?
+- [ ] Czy skonfigurowano zmienne środowiskowe dla bazy danych w `docker-compose.yml`?
+- [ ] Czy w `settings.py` aplikacji Django baza danych jest skonfigurowana do łączenia się z serwisem `db`?
+- [ ] Czy wolumeny dla bazy danych są poprawnie zdefiniowane, aby dane nie były tracone po zatrzymaniu kontenera?
+- [ ] Czy aplikacja uruchamia się poprawnie za pomocą komendy `docker-compose up`?
+- [ ] Czy migracje bazy danych zostały wykonane wewnątrz kontenera?
+- [ ] Czy sprawozdanie w formacie PDF zostało przygotowane?
 
 ### Wymagania na zaliczenie:
 - Pliki `Dockerfile` i `docker-compose.yml` w repozytorium.

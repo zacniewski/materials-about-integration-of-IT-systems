@@ -131,13 +131,16 @@ graph LR
 - [ ] Czy zrealizowano wszystkie punkty od 1 do 6?
 - [ ] Czy zainstalowano odpowiednie narzędzia dla wybranej technologii (np. Python, Node.js, Git)?
 - [ ] Czy skonfigurowano klucze SSH i połączenie z GitHub (test: `ssh -T git@github.com`)?
+- [ ] Czy plik `README.md` zawiera nagłówki, listy, pogrubienia oraz linki (zgodnie z zadaniem 1)?
 - [ ] Czy projekt uruchamia się lokalnie i wyświetla stronę startową?
 - [ ] Czy plik `.gitignore` jest poprawnie skonfigurowany dla Twojej technologii (np. ignoruje środowiska wirtualne, cache, pliki lokalnych baz danych i pliki IDE)?
 - [ ] Czy w repozytorium znajdują się co najmniej dwie gałęzie oprócz `main` (np. `feature/setup`, `feature/docs`)?
-- [ ] Czy gałęzie pomocnicze nie zostały usunięte po scaleniu?
-- [ ] Czy repozytorium na GitHub jest publiczne i zawiera sformatowany plik `README.md`?
+- [ ] Czy gałęzie pomocnicze nie zostały usunięte po scaleniu i są widoczne na GitHubie?
+- [ ] Czy repozytorium na GitHub jest publiczne?
 - [ ] Czy skonfigurowano GitHub Actions (workflow dopasowany do technologii) i czy testy przechodzą (zielony znacznik)?
+- [ ] Czy celowo wprowadzono błąd w celu przetestowania GitHub Actions (zgodnie z zadaniem 6)?
 - [ ] Czy w historii commitów widać co najmniej kilka wpisów o jasnych i zrozumiałych komunikatach?
+- [ ] Czy sprawozdanie w formacie PDF zostało przygotowane?
 
 ### Wymagania na zaliczenie:
 - Realizacja wszystkich punktów (1-6) instrukcji.

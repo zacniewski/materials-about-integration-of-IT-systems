@@ -91,12 +91,19 @@ class Post(models.Model):
    - (Opcjonalnie) Dodaj proste testy jednostkowe widoków lub modeli i włącz je do CI (patrz Wykład 2, sekcja Actions).
 
 ### Lista kontrolna (Checklist):
-- [ ] Czy pracowałeś na osobnej gałęzi `feature/blog-app`?
-- [ ] Czy każdy etap pracy kończył się sensownym commitem?
-- [ ] Czy aplikacja `blog` została dodana do `INSTALLED_APPS`?
-- [ ] Czy migracje zostały wykonane pomyślnie?
-- [ ] Czy strona główna wyświetla listę postów pobranych z bazy danych?
-- [ ] Czy gałąź została poprawnie scalona z `main`?
+- [ ] Czy stworzono i wykorzystano nową gałąź `feature/blog-app`?
+- [ ] Czy nowa aplikacja została poprawnie zarejestrowana w `INSTALLED_APPS`?
+- [ ] Czy model `Post` zawiera wszystkie wymagane pola (`title`, `content`, `author`, `created_at`, `published_at`)?
+- [ ] Czy dla modelu `Post` zdefiniowano metodę `__str__`?
+- [ ] Czy migracje bazy danych zostały wygenerowane i zaaplikowane?
+- [ ] Czy model `Post` jest widoczny i edytowalny w panelu administratora Django?
+- [ ] Czy stworzono przynajmniej jeden widok listy (`ListView`) i jeden widok szczegółowy (`DetailView`)?
+- [ ] Czy routing (URL-e) jest poprawnie skonfigurowany na poziomie aplikacji i projektu?
+- [ ] Czy szablony HTML znajdują się w poprawnym folderze (np. `templates/blog/`)?
+- [ ] Czy na GitHubie został stworzony Pull Request z gałęzi `feature/blog-app` do `main`?
+- [ ] Czy proces scalania (merge) został odnotowany w historii Git?
+- [ ] Czy każdy commit ma zrozumiały opis i dotyczy konkretnej funkcjonalności?
+- [ ] Czy sprawozdanie w formacie PDF zostało przygotowane?
 
 ### Wymagania na zaliczenie:
 - Działająca lokalnie aplikacja bloga.
