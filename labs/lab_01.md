@@ -125,6 +125,7 @@ graph LR
              run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
      ```
    - Wysłanie zmian do repozytorium (`push`) i zaobserwowanie zakładki **Actions** na GitHubie.
+   - **Dodatkowa dokumentacja:** Szczegółowe instrukcje konfiguracji GitHub Actions dla technologii Django oraz Node.js znajdziesz w pliku [github_actions_setup.md](../docs/github_actions_setup.md).
    - **Zadanie:** Celowo wprowadź błąd składniowy (np. usuń dwukropek w `urls.py`), wypchnij zmianę i sprawdź, czy GitHub Actions zgłosi błąd (czerwony X).
 
 ### Lista kontrolna (Checklist):
