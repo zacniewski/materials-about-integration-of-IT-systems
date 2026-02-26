@@ -130,7 +130,27 @@ jobs:
 
 ---
 
+## 4. Proste przykłady w tym repozytorium
+
+W folderze `examples/github_actions/` znajdziesz gotowe do użycia przykłady:
+
+### Python (pytest)
+- **Kod:** `examples/github_actions/python/main.py`
+- **Testy:** `examples/github_actions/python/test_main.py`
+- **Workflow:** `.github/workflows/python_example.yml`
+
+Ten przykład pokazuje, jak skonfigurować prosty skrypt w Pythonie wraz z testami `pytest`, które uruchamiają się przy każdej zmianie w folderze przykładu.
+
+### JavaScript (Jest)
+- **Kod:** `examples/github_actions/javascript/index.js`
+- **Testy:** `examples/github_actions/javascript/index.test.js`
+- **Workflow:** `.github/workflows/javascript_example.yml`
+
+Przykład dla Node.js wykorzystujący framework `Jest` do testowania. Workflow instaluje zależności i uruchamia testy automatycznie.
+
+---
+
 ## Jak sprawdzić czy działa?
 1. Wypchnij zmiany do repozytorium (`git push`).
 2. Wejdź na GitHub w zakładkę **Actions**.
-3. Kliknij w ostatni workflow, aby zobaczyć szczegóły każdego kroku i ewentualne logi błędów.
+3. Kliknij ostatni workflow, aby zobaczyć szczegóły każdego kroku i ewentualne logi błędów.
