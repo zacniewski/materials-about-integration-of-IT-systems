@@ -17,5 +17,5 @@ test("adds 111 + 222 to equal 333", () => {
 });
 
 test("adds 222 + 444 to equal 666", () => {
-  expect(add(222, 444)).toBe(666);
+  expect(add(222, 444)).toBe(777);
 });
