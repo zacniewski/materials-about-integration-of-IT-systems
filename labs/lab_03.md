@@ -37,7 +37,7 @@ Rozbudowa aplikacji o interfejs API oraz integracja z zewnętrznymi źródłami 
 - [ ] Czy obsłużono sytuacje wyjątkowe przy połączeniu z zewnętrznym API (użycie bloku `try...except` w Pythonie lub `try...catch` w JS)?
 - [ ] Czy sprawdzono kod odpowiedzi HTTP z zewnętrznego serwisu (np. `response.status_code == 200` lub `res.ok`)?
 - [ ] Czy pobrane dane są wyświetlane w nowym szablonie w czytelny sposób (np. w postaci tabeli lub listy)?
-- [ ] Czy wykorzystano przykłady kodu z folderu `examples/`?
+- [ ] Czy wykorzystano przykłady kodu z folderu `examples/` (opcjonalnie)?
 - [ ] Czy każdy commit ma jasny opis zmian związanych z API lub integracją?
 - [ ] Czy sprawozdanie w formacie PDF zostało przygotowane (zawiera zrzuty ekranu endpointu API i strony z pobranymi danymi)?
 
