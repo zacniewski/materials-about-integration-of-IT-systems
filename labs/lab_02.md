@@ -3,14 +3,14 @@
 ## Czas trwania: 6 godzin
 
 ### Cel:
-Stworzenie lokalnej wersji aplikacji 'Blog' w Django oraz opanowanie pracy na gałęziach (Feature Branch Workflow) w systemie Git.
+Stworzenie lokalnej wersji aplikacji 'Blog' w Django lub Express.js oraz opanowanie pracy na gałęziach (Feature Branch Workflow) w systemie Git.
 
 ### Zadania i ćwiczenia:
 
 #### 0. Wiedza teoretyczna w pigułce
-- **MVC w Django:** Django implementuje wzorzec MVT (Model-Template-View), będący wariantem MVC: `Model` (logika danych), `Template` (warstwa prezentacji), `View` (logika kontrolera).
-- **Przepływ żądania:** Przeglądarka -> URLconf -> Widok -> (Model/ORM) -> Szablon -> Odpowiedź HTTP.
-- **ORM:** Warstwa mapowania obiektowo-relacyjnego pozwala operować na bazie poprzez klasy Pythona.
+- **MVC/MVT:** Django implementuje MVT (Model-Template-View). Express.js pozwala na dowolność, ale często stosuje się w nim klasyczne MVC (Model-View-Controller).
+- **ORM / ODM:** Warstwa mapowania obiektowo-relacyjnego (np. Django ORM, Sequelize dla JS) pozwala operować na bazie poprzez obiekty w kodzie.
+- **Middleware:** Funkcje w Express.js (i Django), które mają dostęp do obiektu żądania (req), odpowiedzi (res) i następnej funkcji middleware.
 
 ```mermaid
 sequenceDiagram
@@ -50,11 +50,12 @@ erDiagram
         datetime published_at
     }
 ```
-   - Stworzenie modelu `Post` z polami: `title`, `content`, `author` (ForeignKey do User), `created_at`, `published_at`.
-   - Implementacja metody `__str__` dla modelu.
+   - Stworzenie modelu `Post` z polami: `title`, `content`, `author`, `created_at`, `published_at`.
+   - **Django:** Edycja `blog/models.py`, implementacja metody `__str__`.
+   - **Express.js:** Wybierz bibliotekę (np. `Sequelize` lub `Mongoose`) i zdefiniuj schemat postu.
    - **Commit:** "Define Post model".
 
-**Kod źródłowy `blog/models.py`:**
+**Przykład modelu w Django (`blog/models.py`):**
 ```python
 from django.db import models
 from django.contrib.auth.models import User
@@ -71,16 +72,27 @@ class Post(models.Model):
         return self.title
 ```
 
-4. **Migracje i Panel Admina (1h):**
-   - Wykonanie migracji: `python manage.py makemigrations` i `python manage.py migrate`.
-   - Rejestracja modelu w `blog/admin.py`.
-   - Tworzenie superużytkownika (`createsuperuser`) i dodanie testowych postów.
-   - **Commit:** "Initialize database migrations and admin registration".
+**Przykład modelu w Express (Sequelize):**
+```javascript
+const Post = sequelize.define('Post', {
+  title: Sequelize.STRING,
+  content: Sequelize.TEXT,
+  published_at: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
+  }
+});
+```
+
+4. **Migracje i Panel Zarządzania (1h):**
+   - **Django:** Wykonanie migracji (`makemigrations`, `migrate`) i rejestracja w `admin.py`.
+   - **Express.js:** Uruchom synchronizację modeli z bazą danych (np. `sequelize.sync()`) i stwórz prosty formularz do dodawania postów (jako zamiennik panelu admina).
+   - **Commit:** "Initialize database and basic administrative access".
 
 5. **Widoki i Szablony (2h):**
-   - Stworzenie widoku listy postów (`ListView`) i szczegółów postu (`DetailView`).
-   - Konfiguracja URL-i w `blog/urls.py` oraz głównym `urls.py`.
-   - Tworzenie folderu `templates/blog/` i plików HTML.
+   - Stworzenie widoku listy postów i szczegółów postu.
+   - **Django:** `ListView`, `DetailView`, szablony w `templates/blog/`.
+   - **Express.js:** `router.get('/', ...)`, system szablonów (np. EJS, Pug) lub zwracanie JSON.
    - **Commit:** "Implement basic views and templates for blog posts".
 
 6. **Zarządzanie zmianami i Merge (2h):**
@@ -92,18 +104,19 @@ class Post(models.Model):
 
 ### Lista kontrolna (Checklist):
 - [ ] Czy stworzono i wykorzystano nową gałąź `feature/blog-app`?
-- [ ] Czy nowa aplikacja została poprawnie zarejestrowana w `INSTALLED_APPS`?
+- [ ] Czy nowa aplikacja została poprawnie zainicjalizowana i zarejestrowana w głównym projekcie?
 - [ ] Czy model `Post` zawiera wszystkie wymagane pola (`title`, `content`, `author`, `created_at`, `published_at`)?
-- [ ] Czy dla modelu `Post` zdefiniowano metodę `__str__`?
-- [ ] Czy migracje bazy danych zostały wygenerowane i zaaplikowane?
-- [ ] Czy model `Post` jest widoczny i edytowalny w panelu administratora Django?
-- [ ] Czy stworzono przynajmniej jeden widok listy (`ListView`) i jeden widok szczegółowy (`DetailView`)?
-- [ ] Czy routing (URL-e) jest poprawnie skonfigurowany na poziomie aplikacji i projektu?
-- [ ] Czy szablony HTML znajdują się w poprawnym folderze (np. `templates/blog/`)?
+- [ ] Czy poprawnie obsłużono powiązanie posta z autorem (ForeignKey w Django lub asocjacje w Sequelize)?
+- [ ] Czy migracje bazy danych zostały wygenerowane i zaaplikowane (sprawdź czy tabela istnieje w bazie)?
+- [ ] Czy istnieje możliwość dodawania i edycji postów (Panel Admina w Django lub dedykowane trasy/formularze w Express.js)?
+- [ ] Czy stworzono widok listy postów (wszystkie posty) i widok szczegółowy (jeden konkretny post)?
+- [ ] Czy routing (URL-e) jest poprawnie skonfigurowany (brak błędów 404 przy nawigacji)?
+- [ ] Czy szablony HTML poprawnie wyświetlają dynamiczne dane pobrane z bazy (użycie pętli dla listy)?
 - [ ] Czy na GitHubie został stworzony Pull Request z gałęzi `feature/blog-app` do `main`?
-- [ ] Czy proces scalania (merge) został odnotowany w historii Git?
+- [ ] Czy Pull Request zawiera opis zmian i został zmergowany (lokalnie lub przez WWW)?
+- [ ] Czy proces scalania (merge) został odnotowany w historii Git (użyj `git log --graph --oneline`)?
 - [ ] Czy każdy commit ma zrozumiały opis i dotyczy konkretnej funkcjonalności?
-- [ ] Czy sprawozdanie w formacie PDF zostało przygotowane?
+- [ ] Czy sprawozdanie w formacie PDF zostało przygotowane (zawiera zrzuty ekranu aplikacji i historię Git)?
 
 ### Wymagania na zaliczenie:
 - Działająca lokalnie aplikacja bloga.

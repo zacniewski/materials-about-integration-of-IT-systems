@@ -6,7 +6,7 @@
 Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie lokalnego środowiska programistycznego dla wybranego frameworka (np. Django, React, itp.). Szczególny nacisk położono na poprawne dokumentowanie pracy przy użyciu Markdown oraz konfigurację bezpiecznego dostępu przez SSH. Przed rozpoczęciem zapoznaj się z listą wymaganych kont w pliku [before_you_start.md](before_you_start.md).
 
 > **Ważne:** Przykłady zadań bazują na Django, ponieważ jest to technologia wybrana przez prowadzącego do prezentacji. Studenci mogą jednak realizować laboratoria w dowolnej, preferowanej przez siebie technologii.  
-> Wszędzie zamiast Django należy korzystać z technologii, którą się wybrało. W przypadku wyboru innego frameworka, należy odpowiednio skonfigurować plik `.gitignore` oraz treść pliku workflow w GitHub Actions, tak aby były one dopasowane do wybranej technologii.
+> Wszędzie, zamiast Django należy korzystać z technologii, którą się wybrało. W przypadku wyboru innego frameworka, należy odpowiednio skonfigurować plik `.gitignore` oraz treść pliku workflow w GitHub Actions, tak aby były one dopasowane do wybranej technologii.
 > 
 > **Wymagania ogólne:** 
 > * Konieczna jest realizacja (użycie) wszystkich punktów 1-6 opisanych w tym laboratorium.
@@ -21,7 +21,7 @@ Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie loka
 *   **Wirtualne środowisko (venv)** izoluje zależności Twojego projektu. Dzięki temu różne projekty mogą używać różnych wersji tych samych bibliotek (np. Django 4.2 i Django 5.0) na tym samym komputerze bez konfliktów.
 
 1. **Konfiguracja środowiska i Markdown (2h):**
-   - **Instalacja narzędzi:** Upewnij się, że masz zainstalowany Git (`git --version`) oraz Python (`python --version` lub `python3 --version`).
+   - **Instalacja narzędzi:** Upewnij się, że masz zainstalowany Git (`git --version`) oraz Python (`python --version` lub `python3 --version`). W przypadku wyboru technologii JavaScript, upewnij się, że masz zainstalowany Node.js (`node --version`) oraz menedżer pakietów npm (`npm --version`).
    - **Konfiguracja tożsamości Git:** Wpisz w terminalu swoje dane, które będą widoczne przy każdym commicie:
      ```bash
      git config --global user.name "Twoje Imie i Nazwisko"
@@ -46,44 +46,54 @@ Opanowanie systemu kontroli wersji Git, platformy GitHub oraz przygotowanie loka
 | Narzędzie | Komenda | Opis |
 | :--- | :--- | :--- |
 | **Git** | `git config --global user.name "Twoje Imie"` | Konfiguracja tożsamości |
-| **Venv** | `python -m venv venv` | Tworzenie izolowanego środowiska |
-| **Pip** | `pip install django` | Instalacja frameworka |
-| **Django** | `django-admin startproject core .` | Inicjalizacja projektu |
+| **Venv (Py)** | `python -m venv venv` | Tworzenie izolowanego środowiska Python |
+| **Pip (Py)** | `pip install django` | Instalacja frameworka Python |
+| **Django (Py)** | `django-admin startproject core .` | Inicjalizacja projektu Python |
+| **Npm (JS)** | `npm init -y` | Inicjalizacja projektu Node.js |
+| **Express (JS)**| `npm install express` | Instalacja frameworka Node.js |
+| **Jest (JS)** | `npm install --save-dev jest` | Instalacja narzędzi do testowania JS |
 
 2. **Inicjalizacja projektu i Git (2h):**
    - **Przygotowanie folderu:** Stwórz nowy folder na projekt i wejdź do niego w terminalu.
-   - **Wirtualne środowisko (izolacja bibliotek):**
-     1. Utwórz venv: `python -m venv venv`.
-     2. Aktywuj środowisko:
-        - Linux/macOS: `source venv/bin/activate`
-        - Windows (CMD): `venv\Scripts\activate`
-        - Windows (PowerShell): `.\venv\Scripts\Activate.ps1`
-     3. Po aktywacji powinieneś widzieć `(venv)` na początku linii w terminalu.
-   - **Instalacja frameworka:** Zainstaluj Django: `pip install django`.
-   - **Utworzenie struktury projektu:** Wykonaj `django-admin startproject core .` (kropka na końcu jest ważna - tworzy projekt w bieżącym folderze).
+   - **Izolacja środowiska (venv / node_modules):**
+     - **Python (Django):**
+       1. Utwórz venv: `python -m venv venv`.
+       2. Aktywuj środowisko:
+          - Linux/macOS: `source venv/bin/activate`
+          - Windows: `.\venv\Scripts\activate` (PS) lub `venv\Scripts\activate` (CMD)
+       3. Zainstaluj Django: `pip install django`.
+       4. Utwórz strukturę: `django-admin startproject core .`.
+       5. Zarządzanie zależnościami: `pip freeze > requirements.txt`.
+     - **JavaScript (Node.js/Express):**
+       1. Zainicjuj projekt: `npm init -y`.
+       2. Zainstaluj Express: `npm install express`.
+       3. Utwórz strukturę: `mkdir src && touch src/index.js`.
+       4. Zarządzanie zależnościami: Plik `package.json` oraz `package-lock.json` są tworzone automatycznie.
    - **Inicjalizacja Git:** Wykonaj `git init` w głównym folderze projektu.
-   - **Zarządzanie zależnościami:** Stwórz plik z listą bibliotek: `pip freeze > requirements.txt`.
    - **Stworzenie pliku `.gitignore`:** Wykorzystaj `gitignore.io` lub stwórz plik ręcznie. Musi on zawierać co najmniej:
      ```text
-     # Środowisko wirtualne
+     # Środowisko wirtualne i zależności
      venv/
-     ENV/
+     node_modules/
      
-     # Cache Pythona
+     # Cache i logi
      **/__pycache__/
-     *.py[cod]
+     *.log
+     npm-debug.log*
      
      # Baza danych (lokalna)
      db.sqlite3
+     *.sqlite
      
-     # Pliki IDE
+     # Pliki IDE i systemu
      .vscode/
      .idea/
+     .DS_Store
      ```
    - **Pierwszy commit:** 
      1. Sprawdź status: `git status`.
      2. Dodaj pliki: `git add .`.
-     3. Zrób commit: `git commit -m "Initial commit: Django project structure"`.
+     3. Zrób commit: `git commit -m "Initial commit: Project structure"` (zamiast Django dopasuj opis).
 
 **Struktura plików projektu Django:**
 ```text
@@ -162,44 +172,63 @@ graph LR
      ```bash
      mkdir -p .github/workflows
      ```
-   - **Stworzenie pliku workflow:** Stwórz plik `.github/workflows/django_check.yml`. Ten plik będzie uruchamiał "sprawdzarkę" przy każdym wypchnięciu kodu.
-   - **Treść pliku (weryfikacja składni):** Skopiuj poniższą treść (uważaj na wcięcia - YAML jest na nie wrażliwy!):
-     ```yaml
-     name: Django Syntax Check
-     on: [push]
-     jobs:
-       lint:
-         runs-on: ubuntu-latest
-         steps:
-           - uses: actions/checkout@v4
-           - name: Set up Python
-             uses: actions/setup-python@v5
-             with:
-               python-version: '3.10'
-           - name: Install flake8
-             run: pip install flake8
-           - name: Run linting
-             run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-     ```
+   - **Stworzenie pliku workflow:** Stwórz plik `.github/workflows/syntax_check.yml`. Ten plik będzie uruchamiał "sprawdzarkę" przy każdym wypchnięciu kodu.
+   - **Treść pliku (weryfikacja składni):**
+     - **Dla Pythona (flake8):**
+       ```yaml
+       name: Python Syntax Check
+       on: [push]
+       jobs:
+         lint:
+           runs-on: ubuntu-latest
+           steps:
+             - uses: actions/checkout@v4
+             - name: Set up Python
+               uses: actions/setup-python@v5
+               with:
+                 python-version: '3.10'
+             - name: Install flake8
+               run: pip install flake8
+             - name: Run linting
+               run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+       ```
+     - **Dla JavaScript (ESLint):**
+       ```yaml
+       name: JavaScript Syntax Check
+       on: [push]
+       jobs:
+         lint:
+           runs-on: ubuntu-latest
+           steps:
+             - uses: actions/checkout@v4
+             - name: Set up Node.js
+               uses: actions/setup-node@v4
+               with:
+                 node-version: '20'
+             - name: Install dependencies
+               run: npm install
+             - name: Run linting (if configured)
+               run: npx eslint . || echo "Eslint not configured yet"
+       ```
    - **Test automatyzacji:** 
-     1. Dodaj, zatwierdź i wypchnij plik workflow: `git add .github/workflows/django_check.yml && git commit -m "Add GitHub Actions workflow" && git push`.
+     1. Dodaj, zatwierdź i wypchnij plik workflow: `git add .github/workflows/syntax_check.yml && git commit -m "Add GitHub Actions workflow" && git push`.
      2. Wejdź na GitHub do zakładki `Actions`. Powinieneś zobaczyć uruchomiony proces (pomarańczowe kółko, potem zielony ptaszek).
    - **Symulacja błędu:** Celowo wprowadź błąd składniowy (np. usuń dwukropek w `urls.py` lub zrób błąd w nazwie funkcji), wypchnij zmianę i sprawdź, czy GitHub Actions zgłosi błąd (czerwony X). Pamiętaj, aby naprawić błąd po teście!
 
 ### Lista kontrolna (Checklist):
 - [ ] Czy zrealizowano wszystkie punkty od 1 do 6?
-- [ ] Czy zainstalowano odpowiednie narzędzia dla wybranej technologii (np. Python, Node.js, Git)?
+- [ ] Czy zainstalowano odpowiednie narzędzia dla wybranej technologii (Python, Node.js, Git)?
 - [ ] Czy skonfigurowano klucze SSH i połączenie z GitHub (test: `ssh -T git@github.com`)?
-- [ ] Czy plik `README.md` zawiera nagłówki, listy, pogrubienia oraz linki (zgodnie z zadaniem 1)?
-- [ ] Czy projekt uruchamia się lokalnie i wyświetla stronę startową?
-- [ ] Czy plik `.gitignore` jest poprawnie skonfigurowany dla Twojej technologii (np. ignoruje środowiska wirtualne, cache, pliki lokalnych baz danych i pliki IDE)?
+- [ ] Czy plik `README.md` zawiera nagłówki, listy, pogrubienia oraz linki? Czy jest czytelny i zawiera instrukcję uruchomienia?
+- [ ] Czy projekt uruchamia się lokalnie i wyświetla stronę startową / zwraca odpowiedź HTTP (np. "Hello World")?
+- [ ] Czy plik `.gitignore` jest poprawnie skonfigurowany dla Twojej technologii (np. ignoruje środowiska wirtualne `venv/`, folder `node_modules/`, cache, pliki lokalnych baz danych i pliki IDE)?
 - [ ] Czy w repozytorium znajdują się co najmniej dwie gałęzie oprócz `main` (np. `feature/setup`, `feature/docs`)?
 - [ ] Czy gałęzie pomocnicze nie zostały usunięte po scaleniu i są widoczne na GitHubie?
-- [ ] Czy repozytorium na GitHub jest publiczne?
-- [ ] Czy skonfigurowano GitHub Actions (workflow dopasowany do technologii) i czy testy przechodzą (zielony znacznik)?
+- [ ] Czy repozytorium na GitHub jest publiczne i poprawnie połączone z lokalnym (`git remote -v`)?
+- [ ] Czy skonfigurowano GitHub Actions (workflow dopasowany do technologii: `python_check.yml` lub `node_check.yml`) i czy testy przechodzą (zielony znacznik)?
 - [ ] Czy celowo wprowadzono błąd w celu przetestowania GitHub Actions (zgodnie z zadaniem 6)?
-- [ ] Czy w historii commitów widać co najmniej kilka wpisów o jasnych i zrozumiałych komunikatach?
-- [ ] Czy sprawozdanie w formacie PDF zostało przygotowane?
+- [ ] Czy w historii commitów widać co najmniej kilka wpisów o jasnych i zrozumiałych komunikatach (nie używamy "asdf", "fix", "." jako opisów)?
+- [ ] Czy sprawozdanie w formacie PDF zostało przygotowane (zrzuty ekranu z działania, link do repozytorium)?
 
 ### Wymagania na zaliczenie:
 - Realizacja wszystkich punktów (1-6) instrukcji.
