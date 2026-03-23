@@ -24,6 +24,10 @@ Przygotowanie aplikacji do pracy w środowisku izolowanym przy użyciu Dockera. 
    - Uruchom cały stos: `docker-compose up`.
    - **Commit:** "Add docker-compose for app and database orchestration".
 
+---
+**Wskazówka:** Więcej informacji o tworzeniu plików `Dockerfile` oraz instrukcję wdrożenia na Render.com znajdziesz w pliku [docker_guide.md](./docker_guide.md).
+---
+
 ### Lista kontrolna (Checklist):
 - [ ] Czy stworzono i wykorzystano nową gałąź `feature/dockerization`?
 - [ ] Czy plik zależności (`requirements.txt` lub `package.json`) zawiera wszystkie niezbędne biblioteki?
