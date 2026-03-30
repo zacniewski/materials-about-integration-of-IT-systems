@@ -51,8 +51,8 @@ Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystanie
 *   **Kluczowe kroki:**
     1.  Zaimplementuj modele i wykonaj migracje lokalnie.
     2.  Stwórz prosty interfejs (widoki Generyczne `ListView`, `DetailView`).
-    3.  Skonfiguruj `settings.py` pod Render.com (zgodnie z Lab 6).
-    4.  Wdróż na Render i skonfiguruj bazę PostgreSQL (zobacz Lab 6).
+    3.  Skonfiguruj `settings.py` pod Render.com (zgodnie z Lab 5).
+    4.  Wdróż na Render i skonfiguruj bazę PostgreSQL (zobacz Lab 5).
 
 #### 2. Aplikacja typu 'To-Do' (PaaS - Render.com)
 **Cel:** Zarządzanie listą zadań z autoryzacją użytkowników.
@@ -85,7 +85,7 @@ Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystanie
     3.  Skonfiguruj ścieżki w `urls.py`.
     4.  Przetestuj endpointy w przeglądarce lub narzędziu Postman.
 
-#### 4. Aplikacja w środowisku Dockera (np. Pogodowa)
+#### 4. Aplikacja w środowisku Dockera (np. pogodowa)
 **Cel:** Pobieranie i wyświetlanie danych z zewnętrznego API w kontenerze.
 
 *   **Inspiracja:** Wykorzystaj skrypt `examples/open_meteo.py` lub `examples/rest_countries.py`.
@@ -118,8 +118,8 @@ Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystanie
 #### Faza 2: Implementacja i Konteneryzacja
 - [ ] Stworzenie logiki aplikacji (Modele, Widoki, Szablony/JSON).
 - [ ] Przygotowanie pliku `requirements.txt`.
-- [ ] Stworzenie poprawnego pliku `Dockerfile` (zgodnie z Lab 7).
-- [ ] Stworzenie pliku `docker-compose.yml` dla środowiska deweloperskiego (zgodnie z Lab 8).
+- [ ] Stworzenie poprawnego pliku `Dockerfile` (zgodnie z Lab 4).
+- [ ] Stworzenie pliku `docker-compose.yml` dla środowiska deweloperskiego (zgodnie z Lab 4).
 
 #### Faza 3: CI/CD i Wdrożenie (dla projektów 1-3)
 - [ ] Konfiguracja bazy danych PostgreSQL na Render.com.
