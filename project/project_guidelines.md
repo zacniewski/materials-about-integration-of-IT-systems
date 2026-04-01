@@ -22,7 +22,7 @@ Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystanie
   - Automatyczne uruchamianie testów jednostkowych przy każdym PR.
   - Sprawdzanie jakości kodu (Lintery).
 - Skonfigurowany potok **Continuous Deployment (CD)**:
-  - Automatyczne wdrożenie na platformę PaaS (np. Render, Fly.io) po scaleniu zmian do `main`.
+  - Automatyczne wdrożenie na platformę PaaS (np. Render, Leapcell, Fly.io) po scaleniu zmian do `main`.
 
 #### 3. Dokumentacja (Markdown):
 - Profesjonalny plik `README.md` zawierający:
@@ -34,7 +34,7 @@ Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystanie
 
 ### Wybór projektu (Scenariusze):
 
-#### 1. Aplikacja typu 'Blog' (PaaS - Render.com)
+#### 1. Aplikacja typu 'Blog' (PaaS - Render.com / Leapcell.io)
 **Cel:** Stworzenie systemu publikacji postów z bazą danych PostgreSQL.
 
 *   **Modele:** `Post(title, content, author, created_at, category)`.
@@ -51,10 +51,10 @@ Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystanie
 *   **Kluczowe kroki:**
     1.  Zaimplementuj modele i wykonaj migracje lokalnie.
     2.  Stwórz prosty interfejs (widoki Generyczne `ListView`, `DetailView`).
-    3.  Skonfiguruj `settings.py` pod Render.com (zgodnie z Lab 5).
-    4.  Wdróż na Render i skonfiguruj bazę PostgreSQL (zobacz Lab 5).
+    3.  Skonfiguruj `settings.py` pod Render.com / Leapcell.io (zgodnie z Lab 5).
+    4.  Wdróż na Render / Leapcell i skonfiguruj bazę PostgreSQL (zobacz Lab 5).
 
-#### 2. Aplikacja typu 'To-Do' (PaaS - Render.com)
+#### 2. Aplikacja typu 'To-Do' (PaaS - Render.com / Leapcell.io)
 **Cel:** Zarządzanie listą zadań z autoryzacją użytkowników.
 
 *   **Modele:** `Task(user, title, completed, created_at)`.
@@ -66,7 +66,7 @@ Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystanie
     | Dodaj zadanie | POST | Tworzy nowe zadanie przypisane do `request.user` |
     | Zmień status | POST | Przełącza flagę `completed` |
 
-#### 3. Aplikacja REST API (PaaS - Render.com)
+#### 3. Aplikacja REST API (PaaS - Render.com / Leapcell.io)
 **Cel:** Udostępnienie danych w formacie JSON przy użyciu czystego Django (`JsonResponse`).
 
 *   **Wymagane biblioteki:** `django-cors-headers`.
@@ -122,8 +122,8 @@ Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystanie
 - [ ] Stworzenie pliku `docker-compose.yml` dla środowiska deweloperskiego (zgodnie z Lab 4).
 
 #### Faza 3: CI/CD i Wdrożenie (dla projektów 1-3)
-- [ ] Konfiguracja bazy danych PostgreSQL na Render.com.
-- [ ] Skonfigurowanie zmiennych środowiskowych w panelu Render.
+- [ ] Konfiguracja bazy danych PostgreSQL na Render.com lub Leapcell.io.
+- [ ] Skonfigurowanie zmiennych środowiskowych w panelu wybranego dostawcy.
 - [ ] Przygotowanie workflow GitHub Actions (Testy + Auto-deploy).
 - [ ] Pierwsze udane wdrożenie produkcyjne.
 
@@ -133,6 +133,6 @@ Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystanie
 
 ### Wymagania na zaliczenie:
 - Repozytorium na GitHub z pełną historią zmian (znaczące commity).
-- Działająca aplikacja (link do Render.com lub instrukcja `docker-compose up`).
+- Działająca aplikacja (link do Render.com / Leapcell.io lub instrukcja `docker-compose up`).
 - Poprawnie skonfigurowany potok CI/CD (zielone buildy).
 - Prezentacja projektu i odpowiedzi na pytania dotyczące integracji elementów systemu.

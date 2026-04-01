@@ -1,6 +1,6 @@
 # Kompletny Przewodnik po Dockerfile: Budowanie Obrazów Aplikacji
 
-Ten przewodnik zawiera szczegółowe informacje na temat tworzenia plików `Dockerfile`, wyjaśnienie kluczowych instrukcji, przykłady dla różnych technologii oraz instrukcję wdrożenia na platformę Render.com.
+Ten przewodnik zawiera szczegółowe informacje na temat tworzenia plików `Dockerfile`, wyjaśnienie kluczowych instrukcji, przykłady dla różnych technologii oraz instrukcję wdrożenia na platformy Render.com oraz Leapcell.io.
 
 ---
 
@@ -226,24 +226,29 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ---
 
-## 7. Wdrożenie na Render.com przy użyciu Dockerfile
+## 7. Wdrożenie na Render.com lub Leapcell.io przy użyciu Dockerfile
 
-Render.com pozwala na łatwe wdrażanie aplikacji bezpośrednio z obrazów Docker.
+Zarówno Render.com, jak i Leapcell.io pozwalają na łatwe wdrażanie aplikacji bezpośrednio z obrazów Docker.
 
 ### Krok 1: Przygotowanie Projektu
-Upewnij się, że Twój `Dockerfile` jest w głównym katalogu projektu. Twoja aplikacja musi nasłuchiwać na porcie zdefiniowanym przez zmienną środowiskową `PORT` (Render przypisuje go dynamicznie).
+Upewnij się, że Twój `Dockerfile` jest w głównym katalogu projektu. Twoja aplikacja musi nasłuchiwać na porcie zdefiniowanym przez zmienną środowiskową `PORT` (obie platformy przypisują go dynamicznie).
 
-### Krok 2: Konfiguracja w Render Dashboard
+### Krok 2: Konfiguracja (Render)
 1. Zaloguj się na [dashboard.render.com](https://dashboard.render.com).
 2. Kliknij **New +** i wybierz **Web Service**.
 3. Połącz swoje repozytorium (GitHub/GitLab).
 4. W sekcji **Runtime** wybierz **Docker**.
-5. W ustawieniach zaawansowanych (Advanced) dodaj zmienne środowiskowe, jeśli Twoja aplikacja ich wymaga (np. `DATABASE_URL`).
+
+### Krok 2: Konfiguracja (Leapcell)
+1. Zaloguj się na [leapcell.io](https://leapcell.io).
+2. Stwórz nowy projekt i połącz go z repozytorium GitHub.
+3. Wybierz wdrożenie typu **Docker**.
+4. Leapcell automatycznie wykryje `Dockerfile` i rozpocznie budowanie.
 
 ### Krok 3: Obsługa Zmiennej PORT (Ważne!)
-W przypadku PHP (Apache), domyślnie serwer działa na porcie 80. Render oczekuje, że aplikacja będzie "rozmawiać" na porcie, który on wskaże.
+W przypadku PHP (Apache), domyślnie serwer działa na porcie 80. Obie platformy oczekują, że aplikacja będzie "rozmawiać" na porcie, który one wskażą.
 
-Jeśli używasz obrazu `php:apache`, musisz zmodyfikować konfigurację Apache w locie lub użyć skryptu startowego, ale najprościej jest po prostu pozwolić Renderowi przekierować ruch (Render automatycznie wykrywa port 80 w obrazie Docker).
+Jeśli używasz obrazu `php:apache`, najprościej jest po prostu pozwolić platformie przekierować ruch (Render/Leapcell automatycznie wykrywają port 80 w obrazie Docker).
 
 Jeśli używasz **PHP Built-in Server** lub **Node.js/Python**, upewnij się, że startujesz aplikację na `0.0.0.0:$PORT`:
 
@@ -252,9 +257,9 @@ Jeśli używasz **PHP Built-in Server** lub **Node.js/Python**, upewnij się, ż
 CMD php -S 0.0.0.0:$PORT
 ```
 
-### Dlaczego warto używać Dockera na Render?
+### Dlaczego warto używać Dockera na Render / Leapcell?
 - **Przewidywalność:** Dokładnie te same biblioteki co lokalnie.
-- **Własne pakiety:** Możesz zainstalować specyficzne biblioteki systemowe (np. `imagemagick`), których standardowe środowiska Render mogą nie mieć.
+- **Własne pakiety:** Możesz zainstalować specyficzne biblioteki systemowe (np. `imagemagick`), których standardowe środowiska mogą nie mieć.
 - **Niezależność od wersji:** Sam decydujesz, czy używasz PHP 7.4, 8.2 czy 8.3.
 
 ---

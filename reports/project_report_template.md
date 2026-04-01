@@ -12,7 +12,7 @@
 - **Backend:** [np. Django]
 - **Baza danych:** [np. PostgreSQL]
 - **Konteneryzacja:** [np. Docker + Docker Compose]
-- **Wdrożenie:** [np. Render.com]
+- **Wdrożenie:** [np. Render.com / Leapcell.io]
 
 ## 3. Realizacja CI/CD
 ### GitHub Actions (CI)

@@ -3,7 +3,7 @@
 ## Czas trwania: 6 godzin
 
 ### Cel:
-Automatyzacja procesów testowania i wdrażania aplikacji (Python lub JavaScript) przy użyciu GitHub Actions oraz darmowych platform typu PaaS (np. Render.com, Vercel, Railway).
+Automatyzacja procesów testowania i wdrażania aplikacji (Python lub JavaScript) przy użyciu GitHub Actions oraz darmowych platform typu PaaS (np. Render.com, Leapcell.io, Vercel, Railway).
 
 ### Zadania i ćwiczenia:
 
@@ -19,11 +19,11 @@ Automatyzacja procesów testowania i wdrażania aplikacji (Python lub JavaScript
    - **Zadanie:** Celowo zepsuj test i sprawdź, czy GitHub Actions zgłosi błąd (czerwony status). Napraw błąd.
    - **Commit:** "Configure GitHub Actions CI pipeline".
 
-3. **Wdrożenie na Render.com (2h):**
-   - Połącz swoje repozytorium z platformą Render.
-   - Skonfiguruj "Deploy Hook".
-   - Dodaj krok w GitHub Actions, który po udanych testach wyśle powiadomienie do Render (Auto-deploy).
-   - **Commit:** "Integrate CD with Render.com via Deploy Hook".
+3. **Wdrożenie na Render.com lub Leapcell.io (2h):**
+   - Połącz swoje repozytorium z wybraną platformą (Render lub Leapcell).
+   - Skonfiguruj "Deploy Hook" (Render) lub odpowiedni mechanizm wdrożenia (Leapcell).
+   - Dodaj krok w GitHub Actions, który po udanych testach wyśle powiadomienie do platformy (Auto-deploy).
+   - **Commit:** "Integrate CD with PaaS via Deploy Hook".
 
 ### Lista kontrolna (Checklist):
 - [ ] Czy napisano i pomyślnie uruchomiono lokalnie co najmniej 2 testy jednostkowe?
@@ -32,8 +32,8 @@ Automatyzacja procesów testowania i wdrażania aplikacji (Python lub JavaScript
 - [ ] Czy w historii commitów widać dowód na celowe popsucie testu i jego późniejszą naprawę (zgodnie z zadaniem 2)?
 - [ ] Czy potok CI na GitHubie jest "zielony" dla najnowszego commita?
 - [ ] Czy testy są automatycznie uruchamiane przy każdym `push` i `pull_request`?
-- [ ] Czy aplikacja została połączona z platformą PaaS (np. Render.com, Vercel)?
-- [ ] Czy poprawnie skonfigurowano zmienne środowiskowe i Secrets na GitHubie (np. `RENDER_DEPLOY_HOOK` lub tokeny dostępowe)?
+- [ ] Czy aplikacja została połączona z platformą PaaS (np. Render.com, Leapcell.io, Vercel)?
+- [ ] Czy poprawnie skonfigurowano zmienne środowiskowe i Secrets na GitHubie (np. `RENDER_DEPLOY_HOOK`, `LEAPCELL_API_KEY` lub inne tokeny dostępowe)?
 - [ ] Czy wdrożenie (deployment) na platformę zewnętrzną zakończyło się sukcesem?
 - [ ] Czy aplikacja jest dostępna pod publicznym adresem URL i działa poprawnie (np. zwraca dane z API lub renderuje stronę)?
 - [ ] Czy sprawozdanie w formacie PDF zostało przygotowane (zawiera link do działającej aplikacji i zrzut ekranu z zielonego potoku CI)?
