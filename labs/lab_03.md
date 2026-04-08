@@ -3,7 +3,7 @@
 ## Czas trwania: 6 godzin
 
 ### Cel:
-Rozbudowa aplikacji o mechanizmy integracji z zewnętrznymi źródłami danych. W instrukcji skupiamy się na **Open-Meteo** oraz **JSONPlaceholder**, jednak są to tylko propozycje – możesz wybrać dowolne inne darmowe API (pełna lista dostępna pod adresem: [https://github.com/public-apis/public-apis](https://github.com/public-apis/public-apis)). Nauka pobierania, filtrowania i transformacji danych JSON, a także ich wizualizacji (np. wykresy) i wyświetlania w aplikacji webowej.
+Rozbudowa aplikacji o mechanizmy integracji z zewnętrznymi źródłami danych. W ramach laboratorium należy zintegrować aplikację z co najmniej dwoma wybranymi zewnętrznymi API. W instrukcji skupiamy się na **Open-Meteo** oraz **JSONPlaceholder**, jednak są to tylko propozycje – możesz wybrać dowolne inne darmowe API (pełna lista dostępna pod adresem: [https://github.com/public-apis/public-apis](https://github.com/public-apis/public-apis)). Nauka pobierania, filtrowania i transformacji danych JSON, a także ich wizualizacji (np. wykresy) i wyświetlania w aplikacji webowej.
 
 ### Zadania i ćwiczenia:
 
@@ -34,8 +34,7 @@ Rozbudowa aplikacji o mechanizmy integracji z zewnętrznymi źródłami danych. 
 
 ### Lista kontrolna (Checklist):
 - [ ] Czy stworzono i wykorzystano nową gałąź `feature/external-api-integration`?
-- [ ] Czy zaimplementowano pobieranie danych z **Open-Meteo API** (temperatura, czas)?
-- [ ] Czy zaimplementowano pobieranie danych z **JSONPlaceholder API**?
+- [ ] Czy zaimplementowano pobieranie danych z co najmniej dwóch wybranych zewnętrznych API (np. Open-Meteo, JSONPlaceholder lub inne z listy public-apis)?
 - [ ] Czy dane z zewnętrznych API są poddawane **obróbce** (filtrowanie, wycinanie zakresów, agregacja)?
 - [ ] Czy zaimplementowano przynajmniej jedną formę **wizualizacji danych** (np. wykres temperatury)?
 - [ ] Czy stworzono własny endpoint API zwracający przetworzone dane zewnętrzne?
