@@ -3,136 +3,114 @@
 ## Wymiar: 30 godzin
 
 ### Cel projektu:
-Zaprojektowanie i wdrożenie kompletnego systemu informatycznego z wykorzystaniem nowoczesnych praktyk inżynierii oprogramowania, ze szczególnym uwzględnieniem pracy z Gitem, GitHubem oraz automatyzacją CI/CD.
+Zaprojektowanie i wdrożenie kompletnego, profesjonalnego systemu informatycznego z wykorzystaniem nowoczesnych praktyk inżynierii oprogramowania. Projekt kładzie szczególny nacisk na integrację systemów, konteneryzację, automatyzację procesów CI/CD oraz zachowanie standardów jakości kodu.
 
-> **Ważne:** Przykłady projektów poniżej bazują na Django, ponieważ jest to technologia wybrana przez prowadzącego do prezentacji. Studenci mogą jednak realizować projekt w dowolnej, preferowanej przez siebie technologii.  
-> **Liczba osób w projekcie**: Projekty mogą być realizowane w składach jedno- lub dwuosobowych.  
+> **Ważne:** Przykłady projektów poniżej bazują na Django, ponieważ jest to technologia wybrana przez prowadzącego do prezentacji. Studenci mogą jednak realizować projekt w dowolnej, preferowanej przez siebie technologii (np. FastAPI, Node.js/Express, Spring Boot, Go).  
+> **Skład zespołu**: Projekty mogą być realizowane indywidualnie lub w zespołach dwuosobowych. W przypadku zespołów dwuosobowych oczekiwany jest proporcjonalnie większy zakres funkcjonalny oraz wyraźny podział prac w historii commitów.
+
+---
+
+### 🛠 Standardy i Metodologia (The Twelve-Factor App)
+Oczekuje się, że projekt będzie budowany zgodnie z nowoczesnymi standardami tworzenia aplikacji chmurowych. Sugerowane jest zastosowanie zasad **[The Twelve-Factor App](https://12factor.net/pl/)**, w szczególności:
+1.  **Codebase:** Jedno repozytorium śledzone w systemie kontroli wersji, wiele wdrożeń.
+2.  **Dependencies:** Jawna deklaracja i izolacja zależności (np. `requirements.txt`, `package.json`, Docker).
+3.  **Config:** Przechowywanie konfiguracji w środowisku (zmienne środowiskowe, `.env`), nie w kodzie.
+4.  **Backing services:** Traktowanie usług wspierających (bazy danych, cache) jako zasoby dołączane.
+5.  **Build, release, run:** Ścisłe rozdzielenie etapów budowania i uruchamiania.
+6.  **Statelessness:** Procesy aplikacji powinny być bezstanowe (dane trzymamy w bazie lub storage'u).
+
+---
 
 ### Wymagania techniczne i procesowe:
 
 #### 1. System Kontroli Wersji (Git & GitHub):
-- Projekt musi być prowadzony w dedykowanym repozytorium na GitHub.
-- **Wymagane Feature Branch Workflow:** Każda nowa funkcjonalność musi powstawać na osobnej gałęzi.
-- **Pull Requests:** Scalanie zmian do gałęzi głównej (`main`) musi odbywać się poprzez Pull Requesty.
-- **Code Review:** Każdy PR powinien zawierać opis zmian i być (w miarę możliwości zespołowych) sprawdzony.
-- **Kultura commitów:** Commity powinny być atomowe i posiadać opisowe wiadomości (zgodne z konwencją np. Conventional Commits).
+- **Feature Branch Workflow:** Każda funkcjonalność/poprawka na osobnej gałęzi (`feature/`, `bugfix/`).
+- **Pull Requests & Code Review:** Scalanie zmian poprzez PR. W zespołach 2-osobowych wymagane wzajemne recenzje kodu.
+- **Kultura commitów:** Atomowe commity, wiadomości zgodne z [Conventional Commits](https://www.conventionalcommits.org/).
+- **GitHub Issues/Projects:** Zarządzanie zadaniami przy użyciu narzędzi GitHub (opcjonalne, ale wysoko oceniane).
 
 #### 2. Automatyzacja (GitHub Actions):
-- Skonfigurowany potok **Continuous Integration (CI)**:
-  - Automatyczne uruchamianie testów jednostkowych przy każdym PR.
-  - Sprawdzanie jakości kodu (Lintery).
-- Skonfigurowany potok **Continuous Deployment (CD)**:
-  - Automatyczne wdrożenie na platformę PaaS (np. Render, Leapcell, Fly.io) po scaleniu zmian do `main`.
+- **Continuous Integration (CI)**:
+  - Automatyczne uruchamianie testów jednostkowych i integracyjnych.
+  - Statyczna analiza kodu (Linters: `flake8`, `pylint`, `eslint` itp.).
+  - Budowanie obrazu Dockera w celu weryfikacji poprawności `Dockerfile`.
+- **Continuous Deployment (CD)**:
+  - Automatyczne wdrożenie na produkcję (Render, Leapcell, Railway, Fly.io) po scaleniu do `main`.
 
 #### 3. Dokumentacja (Markdown):
-- Profesjonalny plik `README.md` zawierający:
-  - Opis projektu i jego funkcjonalności.
-  - Instrukcję uruchomienia lokalnego (preferowany Docker).
-  - Opis architektury systemu.
-  - Link do działającej wersji w chmurze.
-  - Statusy buildów (badges z GitHub Actions).
+- **README.md**: Profesjonalny plik zawierający opis, stos technologiczny, instrukcję uruchomienia (Docker), schemat bazy danych/architektury oraz link do wersji live.
+- **API Documentation**: Jeśli projekt to API, wymagana dokumentacja endpointów (np. Swagger/OpenAPI lub czytelna lista w Markdown).
 
-### Wybór projektu (Scenariusze):
+---
 
-#### 1. Aplikacja typu 'Blog' (PaaS - Render.com / Leapcell.io)
-**Cel:** Stworzenie systemu publikacji postów z bazą danych PostgreSQL.
+### 📋 Scenariusze Projektowe (Inspiracje):
+*Tematy różnią się od zadań laboratoryjnych, wymagając szerszego spojrzenia na logikę biznesową.*
 
-*   **Modele:** `Post(title, content, author, created_at, category)`.
-*   **Struktura:**
-    ```text
-    blog_project/
-    ├── posts/              # Aplikacja obsługująca posty
-    │   ├── models.py       # Definicja Post i Category
-    │   ├── views.py        # Lista postów i szczegóły
-    │   └── templates/      # Szablony HTML (list.html, detail.html)
-    ├── core/               # Główne ustawienia
-    └── requirements.txt    # django, gunicorn, whitenoise, dj-database-url, psycopg2-binary
-    ```
-*   **Kluczowe kroki:**
-    1.  Zaimplementuj modele i wykonaj migracje lokalnie.
-    2.  Stwórz prosty interfejs (widoki Generyczne `ListView`, `DetailView`).
-    3.  Skonfiguruj `settings.py` pod Render.com / Leapcell.io (zgodnie z Lab 5).
-    4.  Wdróż na Render / Leapcell i skonfiguruj bazę PostgreSQL (zobacz Lab 5).
+#### 1. System Rezerwacji Zasobów (np. Co-working, Sprzęt, Gabinety)
+**Cel:** Zarządzanie dostępnością ograniczonych zasobów w czasie.
+- **Kluczowe funkcje:** Kalendarz rezerwacji, unikanie nakładania się terminów (logika walidacji), profile użytkowników, powiadomienia o statusie rezerwacji.
+- **Integracja:** System wysyłki powiadomień (np. Email przez SendGrid/Mailgun lub integracja z Slack).
+- **Zadanie inżynierskie:** Implementacja blokowania zasobu w bazie danych na czas transakcji.
 
-#### 2. Aplikacja typu 'To-Do' (PaaS - Render.com / Leapcell.io)
-**Cel:** Zarządzanie listą zadań z autoryzacją użytkowników.
+#### 2. Portal E-learningowy / Kursy Online
+**Cel:** System zarządzania treścią edukacyjną i postępami studentów.
+- **Kluczowe funkcje:** Podział na moduły i lekcje, śledzenie postępu (ukończone lekcje), system quizów z automatycznym sprawdzaniem wyników.
+- **Integracja:** Przechowywanie plików multimedialnych (np. integracja z AWS S3 lub Cloudinary).
+- **Zadanie inżynierskie:** Optymalizacja zapytań SQL do wyliczania statystyk postępu dla wielu użytkowników.
 
-*   **Modele:** `Task(user, title, completed, created_at)`.
-*   **Logika:** Każdy użytkownik musi być zalogowany, aby widzieć swoje zadania (`LoginRequiredMixin`).
-*   **Tabela funkcjonalności:**
-    | Funkcja | Metoda HTTP | Opis |
-    | :--- | :--- | :--- |
-    | Lista zadań | GET | Wyświetla tylko zadania zalogowanego użytkownika |
-    | Dodaj zadanie | POST | Tworzy nowe zadanie przypisane do `request.user` |
-    | Zmień status | POST | Przełącza flagę `completed` |
+#### 3. Agregator Danych Finansowych / Kryptowalutowych
+**Cel:** System monitorujący portfel inwestycyjny użytkownika w oparciu o dane rynkowe.
+- **Kluczowe funkcje:** Pobieranie aktualnych kursów z zewnętrznych API (np. CoinGecko, NBP), przeliczanie wartości portfela, historia zmian wartości w czasie.
+- **Integracja:** Cykliczne pobieranie danych w tle (np. GitHub Actions Scheduled Triggers lub Celery/Redis).
+- **Zadanie inżynierskie:** Obsługa limitów (Rate Limiting) zewnętrznych API i cachowanie wyników.
 
-#### 3. Aplikacja REST API (PaaS - Render.com / Leapcell.io)
-**Cel:** Udostępnienie danych w formacie JSON przy użyciu czystego Django (`JsonResponse`).
+#### 4. System Zarządzania Magazynem (Inventory Management System)
+**Cel:** Kontrola stanów magazynowych, dostaw i wydań produktów.
+- **Kluczowe funkcje:** Obsługa kodów SKU, alerty o niskim stanie produktów, generowanie raportów w formacie PDF/CSV.
+- **Integracja:** Integracja z zewnętrznym API kurierskim (symulacja) lub generowanie kodów QR.
+- **Zadanie inżynierskie:** Zarządzanie współbieżnością przy jednoczesnej aktualizacji stanu magazynowego przez wielu użytkowników.
 
-*   **Wymagane biblioteki:** `django-cors-headers`.
-*   **Przykład widoku API:**
-    ```python
-    from django.http import JsonResponse
-    from .models import Item
+---
 
-    def item_list(request):
-        items = Item.objects.all().values()
-        return JsonResponse(list(items), safe=False)
-    ```
-*   **Kluczowe kroki:**
-    1.  Zdefiniuj modele w `models.py`.
-    2.  Stwórz widok zwracający `JsonResponse` z danymi modelu (użyj `.values()`).
-    3.  Skonfiguruj ścieżki w `urls.py`.
-    4.  Przetestuj endpointy w przeglądarce lub narzędziu Postman.
+### ✅ Rozszerzona Lista Kontrolna (Checklist):
 
-#### 4. Aplikacja w środowisku Dockera (np. pogodowa)
-**Cel:** Pobieranie i wyświetlanie danych z zewnętrznego API w kontenerze.
+#### Faza 1: Architektura i Setup
+- [ ] Repozytorium skonfigurowane z odpowiednim `.gitignore` i licencją.
+- [ ] Wybrana architektura i stos technologiczny (opisane w README).
+- [ ] Skonfigurowane zmienne środowiskowe (przykład w `.env.example`).
+- [ ] Zaprojektowany schemat bazy danych (diagram ERD lub opis relacji).
 
-*   **Inspiracja:** Wykorzystaj skrypt `examples/open_meteo.py` lub `examples/rest_countries.py`.
-*   **Struktura aplikacji:**
-    ```text
-    weather_app/
-    ├── app.py              # Logika pobierania danych (requests.get)
-    ├── templates/          # Wyświetlanie wyników
-    ├── Dockerfile          # Instrukcja budowania obrazu
-    └── docker-compose.yml  # Orkiestracja (np. aplikacja + Redis do cache)
-    ```
-*   **Przykładowy `docker-compose.yml` dla tego zadania:**
-    ```yaml
-    services:
-      web:
-        build: .
-        ports:
-          - "8000:8000"
-        environment:
-          - API_KEY=${API_KEY}
-    ```
+#### Faza 2: Implementacja i Jakość
+- [ ] Logika biznesowa pokryta testami jednostkowymi (min. 60-70% coverage).
+- [ ] Obsługa błędów (Error Handling) – aplikacja nie "wywala się" przy błędnym wejściu.
+- [ ] Walidacja danych po stronie serwera.
+- [ ] Kod zgodny ze standardami (brak "magic numbers", opisowe nazwy zmiennych, brak martwego kodu).
 
-### Zadania i kroki realizacji (Checklista):
+#### Faza 3: Konteneryzacja i Infrastruktura
+- [ ] `Dockerfile` zoptymalizowany pod kątem rozmiaru (multi-stage build lub obrazy `slim`/`alpine`).
+- [ ] `docker-compose.yml` zawiera aplikację, bazę danych oraz ewentualne usługi (Redis, Worker).
+- [ ] Zdefiniowane Healthchecki w kontenerach.
 
-#### Faza 1: Planowanie i Inicjalizacja
-- [ ] Zdefiniowanie tematu i zakresu funkcjonalnego.
-- [ ] Utworzenie repozytorium na GitHub i lokalna inicjalizacja projektu Django.
-- [ ] Przygotowanie pliku README.md z opisem projektu.
+#### Faza 4: CI/CD i Bezpieczeństwo
+- [ ] Pipeline CI uruchamia lintery i testy przy każdym PR.
+- [ ] Pipeline CD wdraża aplikację automatycznie tylko po sukcesie CI.
+- [ ] Brak wrażliwych danych (klucze API, hasła) w repozytorium.
+- [ ] Zabezpieczenie przed typowymi atakami (np. SQL Injection, XSS) – korzystanie z mechanizmów frameworka.
 
-#### Faza 2: Implementacja i Konteneryzacja
-- [ ] Stworzenie logiki aplikacji (Modele, Widoki, Szablony/JSON).
-- [ ] Przygotowanie pliku `requirements.txt`.
-- [ ] Stworzenie poprawnego pliku `Dockerfile` (zgodnie z Lab 4).
-- [ ] Stworzenie pliku `docker-compose.yml` dla środowiska deweloperskiego (zgodnie z Lab 4).
+---
 
-#### Faza 3: CI/CD i Wdrożenie (dla projektów 1-3)
-- [ ] Konfiguracja bazy danych PostgreSQL na Render.com lub Leapcell.io.
-- [ ] Skonfigurowanie zmiennych środowiskowych w panelu wybranego dostawcy.
-- [ ] Przygotowanie workflow GitHub Actions (Testy + Auto-deploy).
-- [ ] Pierwsze udane wdrożenie produkcyjne.
+### 🌟 Zadania Dodatkowe (Dla chętnych - Bonus Points):
+1.  **Caching:** Implementacja warstwy cache (np. Redis) dla najczęściej wywoływanych zapytań.
+2.  **Monitorowanie:** Podpięcie prostego monitoringu (np. Sentry do błędów lub UptimeRobot).
+3.  **Authentication Extra:** Logowanie przez zewnętrzne serwisy (OAuth2 - GitHub, Google).
+4.  **Full Search:** Implementacja wyszukiwania pełnotekstowego (np. PostgreSQL Full Text Search).
+5.  **Performance:** Optymalizacja obrazów Dockera (zmniejszenie rozmiaru o >30%).
+6.  **Background Tasks:** Przetwarzanie asynchroniczne zadań (np. wysyłka maili w tle).
 
-#### Faza 4: Dokumentacja i Testy
-- [ ] Napisanie testów jednostkowych pokrywających kluczowe funkcje.
-- [ ] Dokumentacja w README: jak uruchomić projekt lokalnie (Docker) i gdzie jest dostępny w chmurze.
+---
 
 ### Wymagania na zaliczenie:
 - Repozytorium na GitHub z pełną historią zmian (znaczące commity).
-- Działająca aplikacja (link do Render.com / Leapcell.io lub instrukcja `docker-compose up`).
-- Poprawnie skonfigurowany potok CI/CD (zielone buildy).
-- Prezentacja projektu i odpowiedzi na pytania dotyczące integracji elementów systemu.
+- Działająca aplikacja (link do wersji chmurowej).
+- Poprawnie skonfigurowany i "zielony" potok CI/CD.
+- Prezentacja projektu (demo) oraz obrona techniczna (pytania o architekturę i integrację).
