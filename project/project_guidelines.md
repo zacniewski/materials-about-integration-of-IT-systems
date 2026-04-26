@@ -8,9 +8,34 @@ Zaprojektowanie i wdrożenie kompletnego, profesjonalnego systemu informatyczneg
 > **Ważne:** Przykłady projektów poniżej bazują na Django, ponieważ jest to technologia wybrana przez prowadzącego do prezentacji. Studenci mogą jednak realizować projekt w dowolnej, preferowanej przez siebie technologii (np. FastAPI, Node.js/Express, Spring Boot, Go).  
 > **Skład zespołu**: Projekty mogą być realizowane indywidualnie lub w zespołach dwuosobowych. W przypadku zespołów dwuosobowych oczekiwany jest proporcjonalnie większy zakres funkcjonalny oraz wyraźny podział prac w historii commitów.
 
+| Cecha | Projekt 1-osobowy | Projekt 2-osobowy |
+| :--- | :--- | :--- |
+| **Liczba funkcjonalności** | Podstawowe (CRUD + 1 Integracja) | Rozszerzone (CRUD + min. 2 Integracje) |
+| **Testy** | Min. 60% pokrycia | Min. 75% pokrycia + testy integracyjne |
+| **Zadania dodatkowe** | Opcjonalne | Wymagane co najmniej jedno |
+| **Code Review** | Nie dotyczy | Wymagane wzajemne recenzje w PR |
+
 ---
 
 ### 🛠 Standardy i Metodologia (The Twelve-Factor App)
+
+Aplikacja powinna być zaprojektowana w architekturze rozproszonej, gdzie każdy komponent ma jasno określoną rolę.
+
+```mermaid
+graph LR
+    User((Użytkownik)) --- Web[Frontend / API Client]
+    Web --- API[Backend API]
+    API --- DB[(Baza Danych)]
+    API --- Cache[(Cache - Redis)]
+    API --- ExtAPI{Zewnętrzne API}
+    
+    subgraph "Infrastruktura (Docker)"
+    API
+    DB
+    Cache
+    end
+```
+
 Oczekuje się, że projekt będzie budowany zgodnie z nowoczesnymi standardami tworzenia aplikacji chmurowych. Sugerowane jest zastosowanie zasad **[The Twelve-Factor App](https://12factor.net/pl/)**, w szczególności:
 1.  **Codebase:** Jedno repozytorium śledzone w systemie kontroli wersji, wiele wdrożeń.
 2.  **Dependencies:** Jawna deklaracja i izolacja zależności (np. `requirements.txt`, `package.json`, Docker).
@@ -30,6 +55,27 @@ Oczekuje się, że projekt będzie budowany zgodnie z nowoczesnymi standardami t
 - **GitHub Issues/Projects:** Zarządzanie zadaniami przy użyciu narzędzi GitHub (opcjonalne, ale wysoko oceniane).
 
 #### 2. Automatyzacja (GitHub Actions):
+
+Poniższy diagram przedstawia automatyczny proces weryfikacji i wdrożenia kodu:
+
+```mermaid
+sequenceDiagram
+    participant Dev as Deweloper
+    participant GH as GitHub (Repo)
+    participant GA as GitHub Actions
+    participant PaaS as Hosting (Render/Leapcell)
+
+    Dev->>GH: Push / Pull Request
+    GH->>GA: Wyzwalacz (Trigger)
+    activate GA
+    GA->>GA: Linter & Testy
+    GA->>GA: Build Obrazu Docker
+    GA-->>GH: Status (Zielony/Czerwony)
+    GA->>PaaS: Deploy (tylko po sukcesie na main)
+    deactivate GA
+    PaaS-->>Dev: Aplikacja LIVE
+```
+
 - **Continuous Integration (CI)**:
   - Automatyczne uruchamianie testów jednostkowych i integracyjnych.
   - Statyczna analiza kodu (Linters: `flake8`, `pylint`, `eslint` itp.).
